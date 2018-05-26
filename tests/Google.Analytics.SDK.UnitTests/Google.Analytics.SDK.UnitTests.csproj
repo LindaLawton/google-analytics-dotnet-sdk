@@ -57,7 +57,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Google.Analytics.SDK\Google.Analytics.SDK.Core\Google.Analytics.SDK.Core.csproj">
+    <ProjectReference Include="..\..\src\Google.Analytics.SDK.Core\Google.Analytics.SDK.Core.csproj">
       <Project>{dfc41a38-ff96-4d4d-9ad4-9d4bad49ca9d}</Project>
       <Name>Google.Analytics.SDK.Core</Name>
     </ProjectReference>
