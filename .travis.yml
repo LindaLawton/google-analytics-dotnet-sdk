@@ -1,6 +1,6 @@
 language: csharp
 mono: none
-dotnet: 2.0.3
+dotnet: 2.1
 dist: trusty
 
 before_install:
@@ -18,5 +18,5 @@ addons:
 
 script:
   - ./BuildSupport.sh
-  - dotnet test tests/Google.Analytics.SDK.Tests/Google.Analytics.SDK.Tests --no-build -c Release
+  - dotnet test tests/Google.Analytics.SDK.Tests/Google.Analytics.SDK.Tests.csproj --no-build -c Release
   
