@@ -9,6 +9,25 @@ The Google Analytics SDK supports tracking for the following interaction ([Hit](
 - Page Views
 - I will support all hit types soon. I will be adding them one at a time.
 
+## Example 
+
+    // Create Web tracker
+    var tracker = Tracker.BuildWebTracker("UA-9183475-1");
+    // Create new Page view hit.
+    var hit = new PageViewHit(tracker, "location", "hostname", "path", "title");
+    
+    // Build hit request.
+    var request = (Hitrequest)tracker.CreateHitRequest(hit);
+    
+    // Debug hit request.
+    var debugRequest = Task.Run(() => request.ExecuteDebugAsync());
+    debugRequest.Wait();
+    Console.Write(debugRequest.Result.RawResponse);
+            
+    // Execute hit request.        
+    var collectRequest = Task.Run(() => request.ExecuteCollectAsync());
+    collectRequest.Wait();
+    Console.Write(collectRequest.Result.RawResponse);
 
 ## About this SDK
 This Google Analytics SDK is not an offical Google SDK It was created by me to help the Google Analytics community as there is no active development on any other SDKs currently.   I intend to support .Net Standard, .net core, and .net classic application types to begin with.   I hope to support Xamarin and Universal windows Applications soon.   
