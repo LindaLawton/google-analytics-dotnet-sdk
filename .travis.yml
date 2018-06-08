@@ -17,6 +17,7 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.1.5
 
 script:
-  - ./BuildSupport.sh
+  - dotnet restore Src/Google.Analytics.SDK.sln
+  - dotnet build Src/Google.Analytics.SDK.sln --configuration $BUILD_CONFIGURATION --no-restore
   - dotnet test tests/Google.Analytics.SDK.Tests/Google.Analytics.SDK.Tests.csproj --no-build -c Release
   
