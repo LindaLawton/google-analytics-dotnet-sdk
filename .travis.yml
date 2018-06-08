@@ -17,6 +17,5 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.1.5
 
 script:
-  - ./BuildSupport.sh
   - dotnet test tests/Google.Analytics.SDK.Tests/Google.Analytics.SDK.Tests --no-build -c Release
   
