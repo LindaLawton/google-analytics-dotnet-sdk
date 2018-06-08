@@ -14,7 +14,7 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.1.5
 
 script:
-  - dotnet build -c Release Src/Google.Analytics.SDK.Core
+  - dotnet build -c Release src/Google.Analytics.SDK.Core
   
   
   
