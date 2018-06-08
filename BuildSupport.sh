@@ -15,4 +15,4 @@ export CI=true
 
 dotnet restore Src/Google.Analytics.SDK.sln
 dotnet build Src/Google.Analytics.SDK.sln --configuration $BUILD_CONFIGURATION --no-restore
-dotnet pack Src/Google.Analytics.SDK.sln --configuration $BUILD_CONFIGURATION --no-restore --no-build --output $NUPKG_DIR
+
