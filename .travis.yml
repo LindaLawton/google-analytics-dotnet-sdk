@@ -15,6 +15,7 @@ addons:
 
 script:
   - dotnet build -c Release src/Google.Analytics.SDK.Core
+  - dotnet build -c Release tests/Google.Analytics.SDK.Tests
   
   
   
