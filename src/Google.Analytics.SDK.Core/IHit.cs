@@ -2,6 +2,7 @@
 {
     public interface IHit
     {
+
         bool IsValid();
 
         bool Validate();
