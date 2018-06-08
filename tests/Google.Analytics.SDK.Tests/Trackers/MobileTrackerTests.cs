@@ -7,7 +7,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
 {
     public class MobileTrackerTests
     {
-        const string WebPropertyId = "UA-XXXX-Y";
+        const string WebPropertyId = "UA-11111-1";
 
         [Fact]
         public void Assert_BuildMobileTracker_Builds_MobileTracker()
@@ -26,7 +26,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
         [Fact]
         public void BuildWebTracker()
         {
-            var tracker = Tracker.BuildWebTracker("XXX-0000-XXX");
+            var tracker = Tracker.BuildWebTracker("UA-0000-1");
 
             var pageHit = new PageViewHit(tracker, "X");
 

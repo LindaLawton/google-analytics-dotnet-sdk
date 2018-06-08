@@ -7,7 +7,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
 {
     public class TrackerTests
     {
-        const string WebPropertyId = "UA-XXXX-Y";
+        const string WebPropertyId = "UA-1111-1";
 
         [Fact]
         public void Assert_BuildMobileTracker_Builds_MobileTracker()
@@ -19,7 +19,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
         [Fact]
         public void Assert_BuildWebTracker_Builds_WebTracker()
         {
-            var tracker = Core.Tracker.BuildWebTracker("UA-XXXX-Y");
+            var tracker = Core.Tracker.BuildWebTracker("UA-11111-1");
             Assert.Equal(tracker.Type, GaTrackerType.Web);
         }
 
@@ -38,7 +38,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
         [Fact]
         public void TestMethod1()
         {
-            var tracker = Core.Tracker.BuildWebTracker("XXX-0000-XXX");
+            var tracker = Core.Tracker.BuildWebTracker("ua-0000-1");
 
             var pageHit = new PageViewHit(tracker, "X");
 
