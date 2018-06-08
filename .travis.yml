@@ -3,9 +3,6 @@ mono: none
 dotnet: 2.1
 dist: trusty
 
-before_install:
-  - chmod +x ./BuildSupport.sh
-
 # Install the .NET Core 1.0 runtime as that's what we build and test against
 addons:
   apt:
