@@ -14,11 +14,10 @@ namespace ConsoleApp
             var x = new PageViewHit(tracker, "location");
             var xx = new PageViewHit(tracker, "location","hostname");
             var xxx = new PageViewHit(tracker, "hostname","path");
-            var xxxx = new PageViewHit(tracker, "location", "hostname", "path", "title");
-            
 
-            var request = (Hitrequest)tracker.CreateHitRequest(xxxx);
-            
+
+            var hit = new PageViewHit(tracker, "location", "hostname", "path", "title");
+            var request = (Hitrequest)tracker.CreateHitRequest(hit);
            
             var debugRequest = Task.Run(() => request.ExecuteDebugAsync());
             debugRequest.Wait();
