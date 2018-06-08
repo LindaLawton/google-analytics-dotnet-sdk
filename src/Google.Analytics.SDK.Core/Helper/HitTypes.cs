@@ -11,5 +11,4 @@
         public const string Exception = "exception";
         public const string Timing = "timing";
     }
-
 }

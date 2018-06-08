@@ -3,7 +3,7 @@ using Google.Analytics.SDK.Core;
 using Google.Analytics.SDK.Core.Helper;
 using Xunit;
 
-namespace Google.Analytics.SDK.Tests
+namespace Google.Analytics.SDK.Tests.Trackers
 {
     public class TrackerTests
     {
@@ -12,39 +12,39 @@ namespace Google.Analytics.SDK.Tests
         [Fact]
         public void Assert_BuildMobileTracker_Builds_MobileTracker()
         {
-            var tracker = Tracker.BuildMobileTracker(WebPropertyId);
+            var tracker = Core.Tracker.BuildMobileTracker(WebPropertyId);
             Assert.Equal(tracker.Type, GaTrackerType.Mobile);
         }
 
         [Fact]
         public void Assert_BuildWebTracker_Builds_WebTracker()
         {
-            var tracker = Tracker.BuildWebTracker("UA-XXXX-Y");
+            var tracker = Core.Tracker.BuildWebTracker("UA-XXXX-Y");
             Assert.Equal(tracker.Type, GaTrackerType.Web);
         }
 
         [Fact]
         public void BuildMobileTracker_Null_WebProperty_ThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Tracker.BuildMobileTracker(null));
+            Assert.Throws<ArgumentNullException>(() => Core.Tracker.BuildMobileTracker(null));
         }
 
         [Fact]
         public void BuildWebTracker_Null_WebProperty_ThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Tracker.BuildWebTracker(null));
+            Assert.Throws<ArgumentNullException>(() => Core.Tracker.BuildWebTracker(null));
         }
 
         [Fact]
         public void TestMethod1()
         {
-            var tracker = Tracker.BuildWebTracker("XXX-0000-XXX");
+            var tracker = Core.Tracker.BuildWebTracker("XXX-0000-XXX");
 
             var pageHit = new PageViewHit("X");
 
-            var requset = tracker.CreateDebugRequest(pageHit);
+            var requset = tracker.CreateHitRequest(pageHit);
 
-            var results = requset.ExecuteAsync();  // todo get awaiter
+            //var results = requset.ExecuteAsync();  // todo get awaiter
 
             var x = new ScreenViewHit("test");
             var m = x.BuildPropertyString("ProtocolVersion");

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
 using Google.Analytics.SDK.Core.Helper;
 
 namespace Google.Analytics.SDK.Core
@@ -23,7 +25,7 @@ namespace Google.Analytics.SDK.Core
         /// </summary>
         [HitAttribute(Parm = "tid", Required = false)]
         public string AnonymizeIp { get; set; }
-        
+
         /// <summary>
         /// When present, the IP address of the sender will be anonymized. For example, the IP will be anonymized if any of the following parameters are present in the payload: &aip=, &aip=0, or &aip=1
         /// </summary>
@@ -224,7 +226,7 @@ namespace Google.Analytics.SDK.Core
         /// </summary>
         [HitAttribute(Parm = "dt", Required = false)]
         public string DocumentTitle { get; set; }
-        
+
         /// <summary>
         /// This parameter is optional on web properties, and required on mobile properties for screenview hits, where it is used for the 'Screen Name' of the screenview hit. On web properties this will default to the unique URL of the page by either using the &dl parameter as-is or assembling it from &dh and &dp.
         /// </summary>
@@ -254,51 +256,24 @@ namespace Google.Analytics.SDK.Core
         {
             throw new System.NotImplementedException();
         }
-    }
 
-    public class PageViewHit : Hit
-    {
-
-        public PageViewHit() : base()
+        public string GetRequest()
         {
-            HitType = HitTypes.Pageview;
-            DocumentLocationURL = "(not set)";
+            var sb = new StringBuilder();
 
+            var properties = typeof(Hit).GetProperties();
+            foreach (var property in properties)
+            {
+                var name = property.Name;
+                var value = property.GetValue(this);
+
+                if (value == null) continue;
+                sb.Append(this.BuildPropertyString(name));
+                sb.Append("&");
+            }
+
+            return sb.ToString().Substring(0, sb.Length - 1);
         }
-
-        public PageViewHit(string documentLocationUrl) : base()
-        {
-            HitType = HitTypes.Pageview;
-            DocumentLocationURL = documentLocationUrl;
-        }
-
-        public PageViewHit(string documentLocationUrl, string documentHostName) : base()
-        {
-            HitType = HitTypes.Pageview;
-            DocumentLocationURL = documentLocationUrl;
-            DocumentHostName = documentHostName;
-
-        }
-
-        public PageViewHit(string documentLocationUrl, string documentHostName, string documentPath) : base()
-        {
-            HitType = HitTypes.Pageview;
-            DocumentLocationURL = documentLocationUrl;
-            DocumentHostName = documentHostName;
-            DocumentPath = documentPath;
-        }
-
-        public PageViewHit(string documentLocationUrl, string documentHostName, string documentPath, string documentTitle) : base()
-        {
-            HitType = HitTypes.Pageview;
-            DocumentLocationURL = documentLocationUrl;
-            DocumentHostName = documentHostName;
-            DocumentPath = documentPath;
-            DocumentTitle = documentTitle;
-        }
-
-        
-
 
     }
 
