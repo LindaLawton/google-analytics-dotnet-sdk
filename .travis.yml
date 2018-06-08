@@ -14,7 +14,7 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.1.5
 
 script:
-  - dotnet restore Src/Google.Analytics.SDK
+  - dotnet build -c Release Src/Google.Analytics.SDK.Core
   
   
   
