@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Google.Analytics.SDK.Core.Helper;
+using Google.Analytics.SDK.Core.Services.Interfaces;
 
 namespace Google.Analytics.SDK.Core
 {
     public class Hit : IHit
     {
+        public Hit(ITracker tracker)
+        {
+            WebPropertyId = tracker.TrackingId;
+            CientId = tracker.ClientId;
+            ApplicationId = tracker.ApplicationId;
+            ApplicationName = tracker.ApplicationName;
+            ApplicationVersion = tracker.ApplicationVersion;
+        }
+
         #region  General
         /// <summary>
         /// The Protocol version. The current value is '1'. This will only change when there are changes made that are not backwards compatible.
@@ -247,6 +257,36 @@ namespace Google.Analytics.SDK.Core
 
         #endregion
 
+        #region App tracking
+
+        /// <summary>
+        /// Specifies the application name. This field is required for any hit that has app related data (i.e., app version, app ID, or app installer ID). For hits sent to web properties, this field is optional.
+        /// </summary>
+        [HitAttribute(Parm = "an", Required = false)]
+        public string ApplicationName { get; set; }
+
+        /// <summary>
+        /// Application identifier.
+        /// </summary>
+        [HitAttribute(Parm = "aid", Required = false)]
+        public string ApplicationId { get; set; }
+
+        /// <summary>
+        /// Specifies the application version.
+        /// </summary>
+        [HitAttribute(Parm = "av", Required = false)]
+        public string ApplicationVersion { get; set; }
+
+        /// <summary>
+        /// Application installer identifier.
+        /// </summary>
+        [HitAttribute(Parm = "aiid", Required = false)]
+        public string ApplicationInstallerId { get; set; }
+
+
+        #endregion
+
+
         public bool IsValid()
         {
             throw new System.NotImplementedException();
@@ -279,7 +319,7 @@ namespace Google.Analytics.SDK.Core
 
     public class ScreenViewHit : Hit
     {
-        public ScreenViewHit(string screenName) : base()
+        public ScreenViewHit(ITracker tracker, string screenName) : base(tracker)
         {
             HitType = HitTypes.Screenview;
             ScreenName = screenName;

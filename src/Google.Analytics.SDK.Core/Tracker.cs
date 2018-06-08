@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using Google.Analytics.SDK.Core.Extensions;
 using Google.Analytics.SDK.Core.Helper;
 
@@ -17,6 +18,9 @@ namespace Google.Analytics.SDK.Core
 
         public static GaTracker BuildWebTracker(string webPropertyId)
         {
+            var regex = new Regex("^UA-[0-9]*-[0-9]", RegexOptions.IgnoreCase);
+            if (!regex.Match(webPropertyId).Success) throw new ArgumentException("Invalid Webpropry format.");
+
             if (string.IsNullOrWhiteSpace(webPropertyId)) throw new ArgumentNullException("webPropertyId required.");
             return BuildTracker(GaTrackerType.Web, webPropertyId);
         }
