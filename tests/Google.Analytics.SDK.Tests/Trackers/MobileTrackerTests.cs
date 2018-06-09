@@ -14,6 +14,9 @@ namespace Google.Analytics.SDK.Tests.Trackers
         {
             var tracker = Tracker.BuildMobileTracker(WebPropertyId);
             Assert.Equal(tracker.Type, GaTrackerType.Mobile);
+            Assert.NotNull(tracker.ApplicationName);
+            Assert.NotNull(tracker.ClientId);
+            Assert.Equal(tracker.TrackingId, WebPropertyId);
         }
 
         [Fact]

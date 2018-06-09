@@ -5,25 +5,17 @@ using Xunit;
 
 namespace Google.Analytics.SDK.Tests.Trackers
 {
-    public class TrackerTests
+    public class WebTrackerTests
     {
-        const string WebPropertyId = "UA-1111-1";
-
-        [Fact]
-        public void Assert_BuildMobileTracker_Builds_MobileTracker()
-        {
-            var tracker = Tracker.BuildMobileTracker(WebPropertyId);
-            Assert.Equal(tracker.Type, GaTrackerType.Mobile);
-            Assert.NotNull(tracker.ApplicationName);
-            Assert.NotNull(tracker.ClientId);
-            Assert.Equal(tracker.TrackingId, WebPropertyId);
-        }
+        private const string WebPropertyId = "UA-1111-1";
 
         [Fact]
         public void Assert_BuildWebTracker_Builds_WebTracker()
         {
-            var tracker = Core.Tracker.BuildWebTracker("UA-11111-1");
+            var tracker = Core.Tracker.BuildWebTracker(WebPropertyId);
             Assert.Equal(tracker.Type, GaTrackerType.Web);
+            Assert.NotNull(tracker.ClientId);
+            Assert.Equal(tracker.TrackingId, WebPropertyId);
         }
 
         [Fact]
@@ -41,7 +33,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
         [Fact]
         public void TestMethod1()
         {
-            var tracker = Core.Tracker.BuildWebTracker("ua-0000-1");
+            var tracker = Core.Tracker.BuildWebTracker(WebPropertyId);
 
             var pageHit = new PageViewHit(tracker, "X");
 
