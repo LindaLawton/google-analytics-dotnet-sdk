@@ -28,6 +28,7 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
 
         public async Task<IResult> ExecuteCollectAsync()
         {
+            RequestType = HttpClientRequestType.Post;
             var results = await ExecuteAsync(GoogleAnalyticsEndpoints.Collect);
 
             return new CollectResult(results);
@@ -44,9 +45,10 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
         {
             if (HttpClientRequestType.Post.Equals(RequestType))
             {
-                var stringContent = new StringContent("");  // TODO Fix post.
-                return ""; // await Client.PostAsync(type, stringContent);
-                
+                var stringContent = new StringContent(Parms);  
+                var response =  await Client.PostAsync(type, stringContent);
+                var contents = await response.Content.ReadAsStringAsync();
+                return contents;
             }
             try
             {
