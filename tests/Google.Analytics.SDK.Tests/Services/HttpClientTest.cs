@@ -12,7 +12,7 @@ namespace Google.Analytics.SDK.Tests.Services
         [Fact]
         public void CreateClient()
         {
-            var tracker = Core.Tracker.BuildMobileTracker("x");
+            var tracker = Core.TrackerBuilder.BuildMobileTracker("x");
             Assert.Equal(tracker.Type, GaTrackerType.Mobile);
         }
     }

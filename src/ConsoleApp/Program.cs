@@ -13,7 +13,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            var tracker = Tracker.BuildWebTracker("UA-59183475-1");
+            var tracker = TrackerBuilder.BuildWebTracker("UA-59183475-1");
             
             var hit = new PageViewHit(tracker, "location", "hostname", "path", "title");
             hit.UserId = "123456";

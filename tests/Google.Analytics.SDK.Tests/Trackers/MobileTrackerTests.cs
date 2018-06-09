@@ -14,7 +14,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
         [Fact]
         public void Assert_BuildMobileTracker_Builds_MobileTracker()
         {
-            var tracker = Tracker.BuildMobileTracker(WebPropertyId);
+            var tracker = TrackerBuilder.BuildMobileTracker(WebPropertyId);
             Assert.Equal(tracker.Type, GaTrackerType.Mobile);
             Assert.NotNull(tracker.ApplicationName);
             Assert.NotNull(tracker.ClientId);
@@ -24,14 +24,14 @@ namespace Google.Analytics.SDK.Tests.Trackers
         [Fact]
         public void BuildMobileTracker_Null_WebProperty_ThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Tracker.BuildMobileTracker(null));
+            Assert.Throws<ArgumentNullException>(() => TrackerBuilder.BuildMobileTracker(null));
         }
 
         
         [Fact]
         public void BuildWebTracker()
         {
-            var tracker = Tracker.BuildWebTracker("UA-0000-1");
+            var tracker = TrackerBuilder.BuildWebTracker("UA-0000-1");
 
             var pageHit = new PageViewHit(tracker, "X");
 
