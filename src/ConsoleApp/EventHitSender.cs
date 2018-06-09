@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Analytics.SDK.Core;
-using Google.Analytics.SDK.Core.Hits.WebHits;
+using Google.Analytics.SDK.Core.Hits;
 using Google.Analytics.SDK.Core.Services.Interfaces;
 
 namespace ConsoleApp
 {
-    class PageViewHItSender
+    class EventHitSender
     {
         public static bool Send(ITracker tracker)
         {
-            var hit = new PageViewHit("location", "hostname", "path", "title")
+
+
+            var hit = new EventHit("Events", "Click", "Awsom", 1)
             {
                 UserId = "123456",
                 DataSource = "app",
@@ -49,6 +51,5 @@ namespace ConsoleApp
             return true;
 
         }
-
     }
 }

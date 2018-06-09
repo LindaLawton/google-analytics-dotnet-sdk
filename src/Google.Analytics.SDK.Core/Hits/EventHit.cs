@@ -17,7 +17,7 @@ namespace Google.Analytics.SDK.Core.Hits
             EventLabel = eventLabel;
         }
 
-        public EventHit(string eventcatagory, string eventAction, string eventLabel, int eventValue) : this(eventcatagory, eventAction, eventLabel)
+        public EventHit(string eventcatagory, string eventAction, string eventLabel, long eventValue) : this(eventcatagory, eventAction, eventLabel)
         {
             HitType = HitTypes.Event;
             EventValue = eventValue.ToString();
