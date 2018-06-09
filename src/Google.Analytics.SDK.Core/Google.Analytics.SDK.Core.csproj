@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Hits\MobileHits\" />
     <Folder Include="Logging\" />
   </ItemGroup>
 

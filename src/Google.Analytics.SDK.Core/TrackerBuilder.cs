@@ -8,11 +8,11 @@ using System.Text.RegularExpressions;
 
 namespace Google.Analytics.SDK.Core
 {
-    public class Tracker
+    public class TrackerBuilder
     {
         public static GaTracker BuildMobileTracker(string webPropertyId, string applicationName = "", string applicationVersion = "", string applicationId = "")
         {
-            if (string.IsNullOrWhiteSpace(webPropertyId)) throw new ArgumentNullException("webPropertyId required.");
+            if (string.IsNullOrWhiteSpace(webPropertyId)) throw new ArgumentNullException(nameof(webPropertyId));
             var tracker = BuildTracker(GaTrackerType.Mobile, webPropertyId);
             tracker.ConfigurApplication(applicationName, applicationVersion, applicationId);
             return tracker;

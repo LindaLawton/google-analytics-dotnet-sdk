@@ -5,6 +5,7 @@ using Google.Analytics.SDK.Core.Helper;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Google.Analytics.SDK.Core.Hits;
 
 namespace Google.Analytics.SDK.Core.Services.Interfaces
 {

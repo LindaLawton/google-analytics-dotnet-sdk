@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Google.Analytics.SDK.Core
+namespace Google.Analytics.SDK.Core.Hits
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class HitAttribute : Attribute

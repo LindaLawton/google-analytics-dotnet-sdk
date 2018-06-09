@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Linda Lawton. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using Google.Analytics.SDK.Core.Helper;
-using Google.Analytics.SDK.Core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Google.Analytics.SDK.Core.Helper;
+using Google.Analytics.SDK.Core.Services.Interfaces;
 
-namespace Google.Analytics.SDK.Core
+namespace Google.Analytics.SDK.Core.Hits
 {
     public class Hit : IHit
     {
@@ -24,37 +24,37 @@ namespace Google.Analytics.SDK.Core
         /// <summary>
         /// The Protocol version. The current value is '1'. This will only change when there are changes made that are not backwards compatible.
         /// </summary>
-        [HitAttribute(Parm = "v", Required = true)]
+        [Hit(Parm = "v", Required = true)]
         public string ProtocolVersion => "1";
         /// <summary>
         /// The tracking ID / web property ID. The format is UA-XXXX-Y. All collected data is associated by this ID.
         /// </summary>
-        [HitAttribute(Parm = "tid", Required = true)]
+        [Hit(Parm = "tid", Required = true)]
         public string WebPropertyId { get; set; }
 
         /// <summary>
         /// When present, the IP address of the sender will be anonymized. For example, the IP will be anonymized if any of the following parameters are present in the payload: &aip=, &aip=0, or &aip=1
         /// </summary>
-        [HitAttribute(Parm = "tid", Required = false)]
+        [Hit(Parm = "tid", Required = false)]
         public string AnonymizeIp { get; set; }
 
         /// <summary>
         /// When present, the IP address of the sender will be anonymized. For example, the IP will be anonymized if any of the following parameters are present in the payload: &aip=, &aip=0, or &aip=1
         /// </summary>
-        [HitAttribute(Parm = "ds", Required = false)]
+        [Hit(Parm = "ds", Required = false)]
         public string DataSource { get; set; } = "app";
 
 
         /// <summary>
         /// Used to collect offline / latent hits. The value represents the time delta (in milliseconds) between when the hit being reported occurred and the time the hit was sent. The value must be greater than or equal to 0. Values greater than four hours may lead to hits not being processed.
         /// </summary>
-        [HitAttribute(Parm = "qt", Required = false)]
+        [Hit(Parm = "qt", Required = false)]
         public int QueueTime { get; set; }
 
         /// <summary>
         /// Used to send a random number in GET requests to ensure browsers and proxies don't cache hits. It should be sent as the final parameter of the request since we've seen some 3rd party internet filtering software add additional parameters to HTTP requests incorrectly. This value is not used in reporting.
         /// </summary>
-        [HitAttribute(Parm = "z", Required = false)]
+        [Hit(Parm = "z", Required = false)]
         public string CacheBuster { get; set; }
 
         #endregion
@@ -64,13 +64,13 @@ namespace Google.Analytics.SDK.Core
         /// <summary>
         /// This field is required if User ID (uid) is not specified in the request. This anonymously identifies a particular user, device, or browser instance. For the web, this is generally stored as a first-party cookie with a two-year expiration. For mobile apps, this is randomly generated for each particular instance of an application install. The value of this field should be a random UUID (version 4) as described in http://www.ietf.org/rfc/rfc4122.txt.
         /// </summary>
-        [HitAttribute(Parm = "cid", Required = true)]
+        [Hit(Parm = "cid", Required = true)]
         public string CientId { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// This field is required if Client ID (cid) is not specified in the request. This is intended to be a known identifier for a user provided by the site owner/tracking library user. It must not itself be PII (personally identifiable information). The value should never be persisted in GA cookies or other Analytics provided storage.
         /// </summary>
-        [HitAttribute(Parm = "uid", Required = true)]
+        [Hit(Parm = "uid", Required = true)]
         public string UserId { get; set; }
 
         #endregion
@@ -79,25 +79,25 @@ namespace Google.Analytics.SDK.Core
         /// <summary>
         /// Used to control the session duration. A value of 'start' forces a new session to start with this hit and 'end' forces the current session to end with this hit. All other values are ignored.
         /// </summary>
-        [HitAttribute(Parm = "sc", Required = true)]
+        [Hit(Parm = "sc", Required = true)]
         public string SessionControl { get; set; }
 
         /// <summary>
         /// The IP address of the user. This should be a valid IP address in IPv4 or IPv6 format. It will always be anonymized just as though &aip (anonymize IP) had been used.
         /// </summary>
-        [HitAttribute(Parm = "uip", Required = true)]
+        [Hit(Parm = "uip", Required = true)]
         public string IpOverride { get; set; }
 
         /// <summary>
         /// The User Agent of the browser. Note that Google has libraries to identify real user agents. Hand crafting your own agent could break at any time.
         /// </summary>
-        [HitAttribute(Parm = "ua", Required = true)]
+        [Hit(Parm = "ua", Required = true)]
         public string UserAgentOverride { get; set; }
 
         /// <summary>
         /// The geographical location of the user. The geographical ID should be a two letter country code or a criteria ID representing a city or region (see http://developers.google.com/analytics/devguides/collection/protocol/v1/geoid). This parameter takes precedent over any location derived from IP address, including the IP Override parameter. An invalid code will result in geographical dimensions to be set to '(not set)'.
         /// </summary>
-        [HitAttribute(Parm = "geoid", Required = true)]
+        [Hit(Parm = "geoid", Required = true)]
         public string GeographicalOverride { get; set; }
 
         #endregion
@@ -107,51 +107,51 @@ namespace Google.Analytics.SDK.Core
         /// <summary>
         /// Specifies which referral source brought traffic to a website. This value is also used to compute the traffic source. The format of this value is a URL.
         /// </summary>
-        [HitAttribute(Parm = "dr", Required = true)]
+        [Hit(Parm = "dr", Required = true)]
         public string DocumentReferrer { get; set; }
 
         /// <summary>
         /// Specifies the campaign name.
         /// </summary>
-        [HitAttribute(Parm = "cn", Required = true)]
+        [Hit(Parm = "cn", Required = true)]
         public string CampaignName { get; set; }
 
         /// <summary>
         /// Specifies the campaign source.
         /// </summary>
-        [HitAttribute(Parm = "cs", Required = true)]
+        [Hit(Parm = "cs", Required = true)]
         public string CampaignSource { get; set; }
         /// <summary>
         /// Specifies the campaign Medium.
         /// </summary>
-        [HitAttribute(Parm = "cm", Required = false)]
+        [Hit(Parm = "cm", Required = false)]
         public string CampaignMedium { get; set; }
         /// <summary>
         /// Specifies the campaign Keyword.
         /// </summary>
-        [HitAttribute(Parm = "ck", Required = false)]
+        [Hit(Parm = "ck", Required = false)]
         public string CampaignKeyword { get; set; }
         /// <summary>
         /// Specifies the campaign content.
         /// </summary>
-        [HitAttribute(Parm = "cc", Required = false)]
+        [Hit(Parm = "cc", Required = false)]
         public string CampaignContent { get; set; }
         /// <summary>
         /// Specifies the campaign Id.
         /// </summary>
-        [HitAttribute(Parm = "ci", Required = false)]
+        [Hit(Parm = "ci", Required = false)]
         public string CampaignID { get; set; }
 
         /// <summary>
         /// Specifies the Google AdWords Id.
         /// </summary>
-        [HitAttribute(Parm = "gclid", Required = false)]
+        [Hit(Parm = "gclid", Required = false)]
         public string GoogleAdWordsID { get; set; }
 
         /// <summary>
         /// Specifies the Google Display Ads Id.
         /// </summary>
-        [HitAttribute(Parm = "dclid", Required = false)]
+        [Hit(Parm = "dclid", Required = false)]
         public string GoogleDisplayAdsID { get; set; }
 
         #endregion
@@ -161,44 +161,44 @@ namespace Google.Analytics.SDK.Core
         /// <summary>
         /// Specifies the screen resolution.
         /// </summary>
-        [HitAttribute(Parm = "sr", Required = false)]
+        [Hit(Parm = "sr", Required = false)]
         public string ScreenResolution { get; set; }
 
         /// <summary>
         /// Specifies the viewable area of the browser / device.
         /// </summary>
-        [HitAttribute(Parm = "vp", Required = false)]
+        [Hit(Parm = "vp", Required = false)]
         public string ViewportSize { get; set; }
 
         /// <summary>
         /// Specifies the character set used to encode the page / document.
         /// </summary>
-        [HitAttribute(Parm = "de", Required = false)]
+        [Hit(Parm = "de", Required = false)]
         public string DocumentEncoding { get; set; }
 
         /// <summary>
         /// Specifies the screen color depth.
         /// </summary>
-        [HitAttribute(Parm = "sd", Required = false)]
+        [Hit(Parm = "sd", Required = false)]
         public string ScreenColors { get; set; }
 
 
         /// <summary>
         ///Specifies the language.
         /// </summary>
-        [HitAttribute(Parm = "ul", Required = false)]
+        [Hit(Parm = "ul", Required = false)]
         public string UserLanguage { get; set; }
 
         /// <summary>
         /// Specifies whether Java was enabled.
         /// </summary>
-        [HitAttribute(Parm = "je", Required = false)]
+        [Hit(Parm = "je", Required = false)]
         public string JavaEnabled { get; set; }
 
         /// <summary>
         /// Specifies the flash version.
         /// </summary>
-        [HitAttribute(Parm = "fl", Required = false)]
+        [Hit(Parm = "fl", Required = false)]
         public string FlashVersion { get; set; }
 
         #endregion
@@ -208,13 +208,13 @@ namespace Google.Analytics.SDK.Core
         /// <summary>
         /// The type of hit. Must be one of 'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'.
         /// </summary>
-        [HitAttribute(Parm = "t", Required = true)]
+        [Hit(Parm = "t", Required = true)]
         public string HitType { get; set; }
 
         /// <summary>
         /// Specifies that a hit be considered non-interactive.
         /// </summary>
-        [HitAttribute(Parm = "ni", Required = false)]
+        [Hit(Parm = "ni", Required = false)]
         public bool NonInteractionHit { get; set; }
 
         #endregion
@@ -224,43 +224,43 @@ namespace Google.Analytics.SDK.Core
         /// <summary>
         /// Use this parameter to send the full URL (document location) of the page on which content resides. You can use the &dh and &dp parameters to override the hostname and path + query portions of the document location, accordingly. The JavaScript clients determine this parameter using the concatenation of the document.location.origin + document.location.pathname + document.location.search browser parameters.Be sure to remove any user authentication or other private information from the URL if present.For 'pageview' hits, either &dl or both &dh and &dp have to be specified for the hit to be valid.
         /// </summary>
-        [HitAttribute(Parm = "dl", Required = false)]
+        [Hit(Parm = "dl", Required = false)]
         public string DocumentLocationURL { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [HitAttribute(Parm = "dh", Required = false)]
+        [Hit(Parm = "dh", Required = false)]
         public string DocumentHostName { get; set; }
 
         /// <summary>
         /// The path portion of the page URL. Should begin with '/'. For 'pageview' hits, either &dl or both &dh and &dp have to be specified for the hit to be valid.
         /// </summary>
-        [HitAttribute(Parm = "dp", Required = false)]
+        [Hit(Parm = "dp", Required = false)]
         public string DocumentPath { get; set; }
 
         /// <summary>
         /// The title of the page / document.
         /// </summary>
-        [HitAttribute(Parm = "dt", Required = false)]
+        [Hit(Parm = "dt", Required = false)]
         public string DocumentTitle { get; set; }
 
         /// <summary>
         /// This parameter is optional on web properties, and required on mobile properties for screenview hits, where it is used for the 'Screen Name' of the screenview hit. On web properties this will default to the unique URL of the page by either using the &dl parameter as-is or assembling it from &dh and &dp.
         /// </summary>
-        [HitAttribute(Parm = "cd", Required = false)]
+        [Hit(Parm = "cd", Required = false)]
         public string ScreenName { get; set; }
 
         /// <summary>
         /// You can have up to 5 content groupings, each of which has an associated index between 1 and 5, inclusive. Each content grouping can have up to 100 content groups. The value of a content group is hierarchical text delimited by '/". All leading and trailing slashes will be removed and any repeated slashes will be reduced to a single slash. For example, '/a//b/' will be converted to 'a/b'.
         /// </summary>
-        [HitAttribute(Parm = "cg<groupIndex>", Required = false)]
+        [Hit(Parm = "cg<groupIndex>", Required = false)]
         public Dictionary<int, string> ContentGroup { get; set; }
 
         /// <summary>
         /// The ID of a clicked DOM element, used to disambiguate multiple links to the same URL in In-Page Analytics reports when Enhanced Link Attribution is enabled for the property.
         /// </summary>
-        [HitAttribute(Parm = "linkid", Required = false)]
+        [Hit(Parm = "linkid", Required = false)]
         public string LinkID { get; set; }
 
         #endregion
@@ -270,25 +270,25 @@ namespace Google.Analytics.SDK.Core
         /// <summary>
         /// Specifies the application name. This field is required for any hit that has app related data (i.e., app version, app ID, or app installer ID). For hits sent to web properties, this field is optional.
         /// </summary>
-        [HitAttribute(Parm = "an", Required = false)]
+        [Hit(Parm = "an", Required = false)]
         public string ApplicationName { get; set; }
 
         /// <summary>
         /// Application identifier.
         /// </summary>
-        [HitAttribute(Parm = "aid", Required = false)]
+        [Hit(Parm = "aid", Required = false)]
         public string ApplicationId { get; set; }
 
         /// <summary>
         /// Specifies the application version.
         /// </summary>
-        [HitAttribute(Parm = "av", Required = false)]
+        [Hit(Parm = "av", Required = false)]
         public string ApplicationVersion { get; set; }
 
         /// <summary>
         /// Application installer identifier.
         /// </summary>
-        [HitAttribute(Parm = "aiid", Required = false)]
+        [Hit(Parm = "aiid", Required = false)]
         public string ApplicationInstallerId { get; set; }
 
 

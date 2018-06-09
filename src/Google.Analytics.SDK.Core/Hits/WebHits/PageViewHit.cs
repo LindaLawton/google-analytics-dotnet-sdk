@@ -4,7 +4,7 @@
 using Google.Analytics.SDK.Core.Helper;
 using Google.Analytics.SDK.Core.Services.Interfaces;
 
-namespace Google.Analytics.SDK.Core
+namespace Google.Analytics.SDK.Core.Hits.WebHits
 {
     public class PageViewHit : Hit
     {
