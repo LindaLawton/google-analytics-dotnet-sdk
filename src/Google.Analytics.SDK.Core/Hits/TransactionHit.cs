@@ -4,9 +4,10 @@ namespace Google.Analytics.SDK.Core.Hits
 {
     public class TransactionHit : Hit
     {
-        public TransactionHit() : base()
+        public TransactionHit(string transactionId) : base()
         {
             HitType = HitTypes.Transaction;
+            TransactionId = transactionId;
         }
     }
 }

@@ -315,6 +315,74 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
+        #region E-Commerce
+
+        /// <summary>
+        /// Required for transaction hit type. 
+        /// Required for item hit type.
+        /// A unique identifier for the transaction.This value should be the same for both the Transaction hit and Items hits associated to the particular transaction.
+        /// </summary>
+        [Hit(Parm = "ti", Required = false)]
+        public string TransactionId { get; set; }
+
+        /// <summary>
+        /// Specifies the affiliation or store name.
+        /// </summary>
+        [Hit(Parm = "ta", Required = false)]
+        public string TransactionAffiliation { get; set; }
+
+        /// <summary>
+        /// Specifies the total revenue associated with the transaction. This value should include any shipping or tax costs.
+        /// </summary>
+        [Hit(Parm = "tr", Required = false)]
+        public string TransactionRevenue { get; set; }
+
+        /// <summary>
+        /// Specifies the total shipping cost of the transaction.
+        /// </summary>
+        [Hit(Parm = "ts", Required = false)]
+        public string TransactionShipping { get; set; }
+
+        /// <summary>
+        /// Specifies the total tax of the transaction.
+        /// </summary>
+        [Hit(Parm = "tt", Required = false)]
+        public string TransactionTax { get; set; }
+
+        /// <summary>
+        /// Required for item hit type.
+        /// Specifies the item name.
+        /// </summary>
+        [Hit(Parm = "in", Required = false)]
+        public string ItemName { get; set; }
+
+
+        /// <summary>
+        /// Specifies the price for a single item / unit.
+        /// </summary>
+        [Hit(Parm = "ip", Required = false)]
+        public string ItemPrice { get; set; }
+
+        /// <summary>
+        /// Specifies the number of items purchased.
+        /// </summary>
+        [Hit(Parm = "iq", Required = false)]
+        public string ItemQuantity { get; set; }
+
+        /// <summary>
+        /// Specifies the SKU or item code.
+        /// </summary>
+        [Hit(Parm = "ic", Required = false)]
+        public string ItemCode { get; set; }
+
+        /// <summary>
+        /// Specifies the category that the item belongs to.
+        /// </summary>
+        [Hit(Parm = "iv", Required = false)]
+        public string ItemCategory { get; set; }
+
+        #endregion
+
 
         public bool IsValid()
         {
