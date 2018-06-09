@@ -33,7 +33,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
         {
             var tracker = TrackerBuilder.BuildWebTracker("UA-0000-1");
 
-            var pageHit = new PageViewHit(tracker, "X");
+            var pageHit = new PageViewHit("X");
 
             var requset = tracker.CreateHitRequest(pageHit);
 
@@ -41,7 +41,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
 
             //var results = requset. .ExecuteAsync();  // todo get awaiter
 
-            var x = new ScreenViewHit(tracker, "test");
+            var x = new ScreenViewHit("test");
             var m = x.BuildPropertyString("ProtocolVersion");
             Assert.True(x.ProtocolVersion != null);
         }

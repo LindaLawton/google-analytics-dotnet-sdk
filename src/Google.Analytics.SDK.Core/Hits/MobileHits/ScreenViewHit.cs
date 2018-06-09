@@ -5,7 +5,7 @@ namespace Google.Analytics.SDK.Core.Hits
 {
     public class ScreenViewHit : Hit
     {
-        public ScreenViewHit(ITracker tracker, string screenName) : base(tracker)
+        public ScreenViewHit(string screenName) : base()
         {
             HitType = HitTypes.Screenview;
             ScreenName = screenName;

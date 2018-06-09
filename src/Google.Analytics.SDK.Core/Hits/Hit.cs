@@ -11,15 +11,6 @@ namespace Google.Analytics.SDK.Core.Hits
 {
     public class Hit : IHit
     {
-        public Hit(ITracker tracker)
-        {
-            WebPropertyId = tracker.TrackingId;
-            CientId = tracker.ClientId;
-            ApplicationId = tracker.ApplicationId;
-            ApplicationName = tracker.ApplicationName;
-            ApplicationVersion = tracker.ApplicationVersion;
-        }
-
         #region  General
         /// <summary>
         /// The Protocol version. The current value is '1'. This will only change when there are changes made that are not backwards compatible.

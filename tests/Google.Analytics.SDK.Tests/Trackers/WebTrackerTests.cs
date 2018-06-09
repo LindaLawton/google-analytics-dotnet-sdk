@@ -2,6 +2,7 @@ using Google.Analytics.SDK.Core.Helper;
 using Google.Analytics.SDK.Core.Hits;
 using Google.Analytics.SDK.Core.Hits.WebHits;
 using System;
+using Google.Analytics.SDK.Core;
 using Xunit;
 
 namespace Google.Analytics.SDK.Tests.Trackers
@@ -36,13 +37,13 @@ namespace Google.Analytics.SDK.Tests.Trackers
         {
             var tracker = Core.TrackerBuilder.BuildWebTracker(WebPropertyId);
 
-            var pageHit = new PageViewHit(tracker, "X");
+            var pageHit = new PageViewHit("X");
 
             var requset = tracker.CreateHitRequest(pageHit);
 
             //var results = requset.ExecuteAsync();  // todo get awaiter
 
-            var x = new ScreenViewHit(tracker, "test");
+            var x = new ScreenViewHit("test");
             var m = x.BuildPropertyString("ProtocolVersion");
             Assert.True(x.ProtocolVersion != null);
         }

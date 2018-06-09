@@ -36,14 +36,28 @@ namespace Google.Analytics.SDK.Core
         }
 
         
-        public IRequest CreateHitRequest(Hit hit)
-        {
-          return new Hitrequest(hit);
-        }
+        
 
         public Task IsValid()
         {
             throw new NotImplementedException();
         }
     }
+
+    public static class TrackerExtensions{
+
+        public static IRequest CreateHitRequest(this ITracker tracker, Hit hit)
+        {
+            hit.CientId = tracker.ClientId;
+            hit.WebPropertyId = tracker.TrackingId;
+            hit.ApplicationId = tracker.ApplicationId;
+            hit.ApplicationName = tracker.ApplicationName;
+            hit.ApplicationVersion = tracker.ApplicationVersion;
+            var request = new Hitrequest(hit);
+            
+
+            return request;
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Google.Analytics.SDK.Core;
 using Google.Analytics.SDK.Core.Hits.WebHits;
 using Google.Analytics.SDK.Core.Services.Interfaces;
 
@@ -12,7 +13,7 @@ namespace ConsoleApp
     {
         public static bool Send(ITracker tracker)
         {
-            var hit = new PageViewHit(tracker, "location", "hostname", "path", "title");
+            var hit = new PageViewHit("location", "hostname", "path", "title");
             hit.UserId = "123456";
             hit.DataSource = "app";
             hit.UserLanguage = "de-CH";

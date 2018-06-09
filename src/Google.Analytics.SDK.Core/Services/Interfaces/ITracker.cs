@@ -14,9 +14,6 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
         string ApplicationName { get; }
         string ApplicationId { get; }
         string ApplicationVersion { get;}
-
-
-        IRequest CreateHitRequest(Hit hit);
         
         Task IsValid();
     }

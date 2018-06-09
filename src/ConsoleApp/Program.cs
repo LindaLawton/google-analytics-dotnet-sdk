@@ -18,7 +18,7 @@ namespace ConsoleApp
             PageViewHItSender.Send(tracker);
 
             var trackerMobile = TrackerBuilder.BuildMobileTracker("UA-59183475-3");
-            var hit = new ScreenViewHit(trackerMobile, "Home");
+            var hit = new ScreenViewHit("Home");
             hit.UserId = "123456";
             hit.DataSource = "app";
             hit.UserLanguage = "de-CH";

@@ -8,28 +8,28 @@ namespace Google.Analytics.SDK.Core.Hits.WebHits
 {
     public class PageViewHit : Hit
     {
-        public PageViewHit(ITracker tracker) : base(tracker)
+        public PageViewHit() : base()
         {
             HitType = HitTypes.Pageview;
             DocumentLocationURL = "(not set)";
         }
 
-        public PageViewHit(ITracker tracker, string documentLocationUrl) : this(tracker)
+        public PageViewHit(string documentLocationUrl) : this()
         {
             DocumentLocationURL = documentLocationUrl;
         }
 
-        public PageViewHit(ITracker tracker, string documentLocationUrl, string documentHostName) : this(tracker, documentLocationUrl)
+        public PageViewHit(string documentLocationUrl, string documentHostName) : this( documentLocationUrl)
         {
             DocumentHostName = documentHostName;
         }
 
-        public PageViewHit(ITracker tracker, string documentLocationUrl, string documentHostName, string documentPath) : this(tracker, documentLocationUrl, documentHostName)
+        public PageViewHit(string documentLocationUrl, string documentHostName, string documentPath) : this(documentLocationUrl, documentHostName)
         {
             DocumentPath = documentPath;
         }
 
-        public PageViewHit(ITracker tracker, string documentLocationUrl, string documentHostName, string documentPath, string documentTitle) : this(tracker, documentLocationUrl, documentHostName ,documentPath)
+        public PageViewHit(string documentLocationUrl, string documentHostName, string documentPath, string documentTitle) : this( documentLocationUrl, documentHostName ,documentPath)
         {
             DocumentTitle = documentTitle;
         }
