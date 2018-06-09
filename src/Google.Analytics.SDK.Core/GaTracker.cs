@@ -1,9 +1,10 @@
-﻿using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+﻿// Copyright (c) Linda Lawton. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
 using Google.Analytics.SDK.Core.Services.Interfaces;
+using System;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Google.Analytics.SDK.Core
 {

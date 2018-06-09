@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
+﻿// Copyright (c) Linda Lawton. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
 using Google.Analytics.SDK.Core.Helper;
 using Google.Analytics.SDK.Core.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Google.Analytics.SDK.Core
 {
