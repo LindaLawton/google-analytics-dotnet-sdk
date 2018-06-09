@@ -29,7 +29,7 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
         {
             RequestType = HttpClientRequestType.Post;
             var results = await ExecuteAsync(GoogleAnalyticsEndpoints.Collect);
-
+        
             return new CollectResult(results);
         }
 

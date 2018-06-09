@@ -6,13 +6,34 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using Google.Analytics.SDK.Core.Hits;
+using Microsoft.Extensions.Logging;
 
 namespace Google.Analytics.SDK.Core
 {
+    public class NoLogging : ILogger {
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        {
+          
+        }
+
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return true;
+        }
+
+        public IDisposable BeginScope<TState>(TState state)
+        {
+            return null;
+        }
+    }
+
+   
+
     public class GaTracker : ITracker
     {
         
         public string Type { get; private set; }
+        public ILogger Logger { get; } = new NoLogging();
         public string TrackingId { get; }
         public string ClientId { get; }
 
@@ -27,16 +48,14 @@ namespace Google.Analytics.SDK.Core
             ApplicationId = string.IsNullOrWhiteSpace(applicationId) ? "1": applicationId;
         }
 
-        public GaTracker(string type, string trackingId)
+        public GaTracker(string type, string trackingId, ILogger logger = null)
         {
             Type = type;
             TrackingId = trackingId;
             ClientId = Guid.NewGuid().ToString();
             ConfigurApplication();
+            Logger = logger ?? new NoLogging();
         }
-
-        
-        
 
         public Task IsValid()
         {
