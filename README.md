@@ -7,6 +7,7 @@ The Google Analytics SDK supports tracking for the following interaction ([Hit](
 
 - Screen Views 
 - Page Views
+- Events
 - I will support all hit types soon. I will be adding them one at a time.
 
 ## Example 
