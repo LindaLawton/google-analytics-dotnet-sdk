@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Google.Analytics.SDK.Core;
-using Google.Analytics.SDK.Core.Helper;
-using Google.Analytics.SDK.Core.Hits;
 using Google.Analytics.SDK.Core.Hits.WebHits;
 using Google.Analytics.SDK.Core.Services.Interfaces;
 
 namespace ConsoleApp
 {
-    class Program
+    class PageViewHItSender
     {
-        static void Main(string[] args)
+        public static bool Send(ITracker tracker)
         {
-            var tracker = TrackerBuilder.BuildWebTracker("UA-59183475-1");
-            PageViewHItSender.Send(tracker);
-
-            var trackerMobile = TrackerBuilder.BuildMobileTracker("UA-59183475-3");
-            var hit = new ScreenViewHit(trackerMobile, "Home");
+            var hit = new PageViewHit(tracker, "location", "hostname", "path", "title");
             hit.UserId = "123456";
             hit.DataSource = "app";
             hit.UserLanguage = "de-CH";
@@ -35,26 +29,25 @@ namespace ConsoleApp
             hit.JavaEnabled = "1";
             hit.FlashVersion = "10 1 r103";
 
-            var request = (Hitrequest)trackerMobile.CreateHitRequest(hit);
+            var request = (Hitrequest)tracker.CreateHitRequest(hit);
 
             var debugRequest = Task.Run(() => request.ExecuteDebugAsync());
             debugRequest.Wait();
             Console.Write(debugRequest.Result.RawResponse);
 
-            var response = (DebugResult)debugRequest.Result;
-
-            Console.Write(response.Response.hitParsingResult.FirstOrDefault().valid);
+            var x = (DebugResult)debugRequest.Result;
+            if (x.Response?.hitParsingResult == null && !x.Response.hitParsingResult.FirstOrDefault().valid)
+                return false;
 
 
             var collectRequest = Task.Run(() => request.ExecuteCollectAsync());
             collectRequest.Wait();
             Console.Write(collectRequest.Result.RawResponse);
-           
+            return true;
 
 
 
-
-            Console.WriteLine("Hello World!");
         }
+
     }
 }
