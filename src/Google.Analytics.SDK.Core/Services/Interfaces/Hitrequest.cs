@@ -36,6 +36,7 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
 
         public async Task<IResult> ExecuteDebugAsync()
         {
+            RequestType = HttpClientRequestType.Get;
             var results =  await ExecuteAsync(GoogleAnalyticsEndpoints.Debug);
 
             return new DebugResult(results);
