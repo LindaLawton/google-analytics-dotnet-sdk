@@ -286,6 +286,36 @@ namespace Google.Analytics.SDK.Core.Hits
         #endregion
 
 
+        #region events
+        
+        /// <summary>
+        /// Required for event hit type. Specifies the event category.Must not be empty.
+        /// </summary>
+        [Hit(Parm = "ec", Required = false)]
+        public string EventCategory { get; set; }
+
+        /// <summary>
+        /// Required for event hit type. Specifies the event action. Must not be empty.
+        /// </summary>
+        [Hit(Parm = "ea", Required = false)]
+        public string EventAction { get; set; }
+       
+
+        /// <summary>
+        /// Optional. Specifies the event label.
+        /// </summary>
+        [Hit(Parm = "el", Required = false)]
+        public string EventLabel { get; set; }
+
+        /// <summary>
+        /// Specifies the event value. Values must be non-negative.
+        /// </summary>
+        [Hit(Parm = "ev", Required = false)]
+        public string EventValue { get; set; }
+
+        #endregion
+
+
         public bool IsValid()
         {
             throw new System.NotImplementedException();
