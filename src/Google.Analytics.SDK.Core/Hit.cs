@@ -169,6 +169,12 @@ namespace Google.Analytics.SDK.Core
         public string ViewportSize { get; set; }
 
         /// <summary>
+        /// Specifies the character set used to encode the page / document.
+        /// </summary>
+        [HitAttribute(Parm = "de", Required = false)]
+        public string DocumentEncoding { get; set; }
+
+        /// <summary>
         /// Specifies the screen color depth.
         /// </summary>
         [HitAttribute(Parm = "sd", Required = false)]
