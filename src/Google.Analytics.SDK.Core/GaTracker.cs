@@ -33,7 +33,7 @@ namespace Google.Analytics.SDK.Core
     {
         
         public string Type { get; private set; }
-        public ILogger Logger { get; } = new NoLogging();
+        public ILogger Logger { get; set; } 
         public string TrackingId { get; }
         public string ClientId { get; }
 
@@ -48,7 +48,7 @@ namespace Google.Analytics.SDK.Core
             ApplicationId = string.IsNullOrWhiteSpace(applicationId) ? "1": applicationId;
         }
 
-        public GaTracker(string type, string trackingId, ILogger logger = null)
+        public GaTracker(string type, string trackingId, ILogger logger = null )
         {
             Type = type;
             TrackingId = trackingId;
@@ -73,10 +73,19 @@ namespace Google.Analytics.SDK.Core
             hit.ApplicationName = tracker.ApplicationName;
             hit.ApplicationVersion = tracker.ApplicationVersion;
             var request = new Hitrequest(hit);
-            
 
+            tracker.Logger.LogCritical("hitAdded");
             return request;
         }
+
+        public static ITracker ConfigurLogging(this GaTracker tracker, ILogger logger)
+        {
+            tracker.Logger = logger;
+            
+            tracker.Logger.LogCritical("Logger added");
+            return tracker;
+        }
+
     }
 
 }

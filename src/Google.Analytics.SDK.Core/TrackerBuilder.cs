@@ -5,6 +5,7 @@ using Google.Analytics.SDK.Core.Extensions;
 using Google.Analytics.SDK.Core.Helper;
 using System;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Logging;
 
 namespace Google.Analytics.SDK.Core
 {
