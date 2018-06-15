@@ -1,4 +1,6 @@
-# Google Analytics SDK for .Net
+[![Build Status](https://travis-ci.org/LindaLawton/google-analytics-dotnet-sdk.svg?branch=master, "Build Status")](https://travis-ci.org/LindaLawton/google-analytics-dotnet-sdk)
+
+# Google Analytics SDK for .Net 
 The Google Analytics SDK is designed makes it easy to connect .net Applications to Google Analytics.  
 
 The Google Analytics SDK uses the Google Analytics [measurement protocol](https://developers.google.com/analytics/devguides/collection/protocol/) to record Hits via HTTP POST or GET requests directly to  Google Analytics. The Google Analytics SDK also supports the [debug](https://developers.google.com/analytics/devguides/collection/protocol/v1/validating-hits) endpoint which will allows developers to test and validate their hits before releasing their applicaitons to production.
