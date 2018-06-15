@@ -9,7 +9,7 @@ using Google.Analytics.SDK.Core.Services.Interfaces;
 
 namespace Google.Analytics.SDK.Core.Hits
 {
-    public class Hit : IHit
+    public abstract class HitBase: IHit
     {
         #region  General
         /// <summary>
@@ -285,7 +285,6 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
-
         #region events
         
         /// <summary>
@@ -384,10 +383,7 @@ namespace Google.Analytics.SDK.Core.Hits
         #endregion
 
 
-        public bool IsValid()
-        {
-            throw new System.NotImplementedException();
-        }
+        public abstract bool IsValid();
 
         public bool Validate()
         {
@@ -398,7 +394,7 @@ namespace Google.Analytics.SDK.Core.Hits
         {
             var sb = new StringBuilder();
 
-            var properties = typeof(Hit).GetProperties();
+            var properties = typeof(HitBase).GetProperties();
             foreach (var property in properties)
             {
                 var name = property.Name;

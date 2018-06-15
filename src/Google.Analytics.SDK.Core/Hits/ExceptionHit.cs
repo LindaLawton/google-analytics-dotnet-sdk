@@ -1,12 +1,10 @@
-﻿using Google.Analytics.SDK.Core.Helper;
-
-namespace Google.Analytics.SDK.Core.Hits
+﻿namespace Google.Analytics.SDK.Core.Hits
 {
-    public class ExceptionHit : Hit
+    public class ExceptionHit : ExceptionHitBase
     {
-        public ExceptionHit() : base()
+        protected ExceptionHit() : base()
         {
-            HitType = HitTypes.Exception;
+
         }
     }
 }
