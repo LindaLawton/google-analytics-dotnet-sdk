@@ -2,11 +2,29 @@
 
 namespace Google.Analytics.SDK.Core.Hits
 {
-    public class SocialHit : Hit
+    public abstract class SocialHitBase : HitBase
+    {
+        protected SocialHitBase() 
+        {
+            HitType = HitTypes.Social;
+        }
+
+        public override bool IsValid()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Validate()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
+    public class SocialHit : SocialHitBase
     {
         public SocialHit() : base()
         {
-            HitType = HitTypes.Social;
+            
         }
     }
 }

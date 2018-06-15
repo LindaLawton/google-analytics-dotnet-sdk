@@ -2,7 +2,7 @@
 
 namespace Google.Analytics.SDK.Core.Hits
 {
-    public class ExceptionHitBase : HitBase
+    public abstract class ExceptionHitBase : HitBase
     {
         protected ExceptionHitBase()
         {
