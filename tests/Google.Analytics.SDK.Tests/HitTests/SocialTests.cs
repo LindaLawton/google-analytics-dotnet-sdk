@@ -18,11 +18,11 @@ namespace Google.Analytics.SDK.Tests.HitTests
         [Fact]
         public void Create_SocailHit_Validate_Fail()
         {
-            var socialHit = new SocialHit("Google+", "plus", "https://plus.google.com/u/0/+LindaLawton/posts/7oxAdszKB9C");
+            var hit = new SocialHit("Google+", "plus", "https://plus.google.com/u/0/+LindaLawton/posts/7oxAdszKB9C");
 
-            socialHit.SocialActionTarget = null;
+            hit.SocialActionTarget = null;
 
-            Assert.False(socialHit.Validate());
+            Assert.False(hit.Validate());
         }
 
         [Fact]
@@ -46,8 +46,8 @@ namespace Google.Analytics.SDK.Tests.HitTests
         [Fact]
         public void Create_SocailHit_HitType_NotNull()
         {
-            var socialHit = new SocialHit("Google+", "plus", "https://plus.google.com/u/0/+LindaLawton/posts/7oxAdszKB9C");
-            Assert.Equal(socialHit.HitType, HitTypes.Social, ignoreCase: true);
+            var hit = new SocialHit("Google+", "plus", "https://plus.google.com/u/0/+LindaLawton/posts/7oxAdszKB9C");
+            Assert.Equal(hit.HitType, HitTypes.Social, ignoreCase: true);
         }
     }
 }

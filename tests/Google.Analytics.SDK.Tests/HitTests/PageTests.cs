@@ -1,3 +1,5 @@
+using Google.Analytics.SDK.Core.Helper;
+using Google.Analytics.SDK.Core.Hits.MobileHits;
 using Google.Analytics.SDK.Core.Hits.WebHits;
 using Xunit;
 
@@ -45,13 +47,19 @@ namespace Google.Analytics.SDK.Tests.HitTests
             Assert.True(hit.Validate());
         }
 
-
         [Fact]
         public void Create_PageviewHit_Validate_Fail()
         {
             var hit = new PageViewHit();
             hit.DocumentLocationURL = null;
             Assert.False(hit.Validate());
+        }
+
+        [Fact]
+        public void Create_PageviewHit_HitType_NotNull()
+        {
+            var hit = new PageViewHit("home");
+            Assert.Equal(hit.HitType, HitTypes.Pageview, ignoreCase: true);
         }
 
     }
