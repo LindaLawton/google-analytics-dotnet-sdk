@@ -9,11 +9,11 @@ using Google.Analytics.SDK.Core.Hits;
 
 namespace Google.Analytics.SDK.Core.Services.Interfaces
 {
-    public class Hitrequest : MustInitialize<IHit>, IRequest
+    public class Hitrequest : MustInitialize<HitBase>, IRequest
     {
         public HttpClient Client { get; }
         public string Parms { get; }
-        public IHit RequestHit { get; }
+        public HitBase RequestHit { get; }
         public string RequestType { get; private set; }
 
         public Hitrequest(HitBase requestHit) : base(requestHit)

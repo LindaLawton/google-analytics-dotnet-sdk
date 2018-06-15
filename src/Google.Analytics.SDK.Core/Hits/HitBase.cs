@@ -407,19 +407,27 @@ namespace Google.Analytics.SDK.Core.Hits
         public string GetRequest()
         {
             var sb = new StringBuilder();
-
-            var properties = typeof(HitBase).GetProperties();
-            foreach (var property in properties)
+            try
             {
-                var name = property.Name;
-                var value = property.GetValue(this);
 
-                if (value == null) continue;
-                sb.Append(this.BuildPropertyString(name));
-                sb.Append("&");
+                var properties = typeof(HitBase).GetProperties();
+                foreach (var property in properties)
+                {
+                    var name = property.Name;
+                    var value = property.GetValue(this);
+
+                    if (value == null) continue;
+                    sb.Append(this.BuildPropertyString(name));
+                    sb.Append("&");
+                }
+
+                return sb.ToString().Substring(0, sb.Length - 1);
             }
-
-            return sb.ToString().Substring(0, sb.Length - 1);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
     }
