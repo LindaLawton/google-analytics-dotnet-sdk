@@ -47,6 +47,5 @@ namespace Google.Analytics.SDK.Tests.Trackers
             Assert.True(x.ProtocolVersion != null);
         }
 
-
     }
 }
