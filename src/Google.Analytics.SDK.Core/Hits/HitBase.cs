@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Google.Analytics.SDK.Core.Helper;
 using Google.Analytics.SDK.Core.Services.Interfaces;
+using Newtonsoft.Json;
 
 namespace Google.Analytics.SDK.Core.Hits
 {
@@ -286,7 +287,7 @@ namespace Google.Analytics.SDK.Core.Hits
         #endregion
 
         #region events
-        
+
         /// <summary>
         /// Required for event hit type. Specifies the event category.Must not be empty.
         /// </summary>
@@ -298,7 +299,7 @@ namespace Google.Analytics.SDK.Core.Hits
         /// </summary>
         [Hit(Parm = "ea", Required = false)]
         public string EventAction { get; set; }
-       
+
 
         /// <summary>
         /// Optional. Specifies the event label.
@@ -381,7 +382,28 @@ namespace Google.Analytics.SDK.Core.Hits
         public string ItemCategory { get; set; }
 
         #endregion
+       
+        #region Social Interactions
 
+        /// <summary>
+        /// Specifies the social network, for example Facebook or Google Plus.
+        /// </summary>
+        [Hit(Parm = "sn", Required = true)]
+        public string SocialNetwork { get; set; }
+
+        /// <summary>
+        /// Specifies the social interaction action. For example on Google Plus when a user clicks the +1 button, the social action is 'plus'.
+        /// </summary>
+        [Hit(Parm = "sa", Required = true)]
+        public string SocialAction { get; set; }
+
+        /// <summary>
+        /// Specifies the target of a social interaction. This value is typically a URL but can be any text.
+        /// </summary>
+        [Hit(Parm = "st", Required = true)]
+        public string SocialActionTarget { get; set; }
+
+        #endregion
 
         public bool IsValid { get; set; }
 
@@ -390,17 +412,21 @@ namespace Google.Analytics.SDK.Core.Hits
             IsValid = false;
 
             //always
-            if (string.IsNullOrWhiteSpace(ClientId))
-                return false;
+            if (string.IsNullOrWhiteSpace(ClientId) || string.IsNullOrWhiteSpace(ProtocolVersion) || string.IsNullOrWhiteSpace(HitType))
+            {
+                Console.WriteLine($"Required paramater missing. clientId={ClientId}, ProtocolVersion={ProtocolVersion}, HitType={HitType}" );  
+                IsValid = false;
+                return IsValid;
+            }
 
 
-            return InternalValidate();
+            IsValid = InternalValidate();
+            return IsValid;
         }
 
         protected virtual bool InternalValidate()
         {
-            IsValid = true;
-            return IsValid;
+            return true;
         }
 
 

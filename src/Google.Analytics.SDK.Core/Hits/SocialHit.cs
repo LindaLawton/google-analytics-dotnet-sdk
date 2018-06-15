@@ -4,7 +4,7 @@ namespace Google.Analytics.SDK.Core.Hits
 {
     public class SocialHit : SocialHitBase
     {
-        public SocialHit() : base()
+        public SocialHit(string socialNetwork, string socialAction, string socialActionTarget) : base(socialNetwork, socialAction, socialActionTarget)
         {
             
         }
