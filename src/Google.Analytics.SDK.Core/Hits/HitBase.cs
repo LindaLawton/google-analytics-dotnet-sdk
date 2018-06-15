@@ -425,7 +425,7 @@ namespace Google.Analytics.SDK.Core.Hits
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine($"GetRequest failed {e}");
                 throw;
             }
         }

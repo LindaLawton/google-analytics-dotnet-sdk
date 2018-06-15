@@ -23,7 +23,7 @@ namespace Google.Analytics.SDK.Core.Helper
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine($"Failed to build property string {e}");
                 throw;
             }
         }
