@@ -382,7 +382,24 @@ namespace Google.Analytics.SDK.Core.Hits
         public string ItemCategory { get; set; }
 
         #endregion
-       
+
+        #region exception
+
+        /// <summary>
+        /// Specifies the description of an exception.
+        /// </summary>
+        [Hit(Parm = "exd", Required = false)]
+        public string ExceptionDescription { get; set; }
+
+        /// <summary>
+        /// Specifies whether the exception was fatal.
+        /// </summary>
+        [Hit(Parm = "exf", Required = false)]
+        public string ExceptionIsFatal { get; set; }
+
+        #endregion
+
+
         #region Social Interactions
 
         /// <summary>
