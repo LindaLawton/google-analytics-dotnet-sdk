@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Google.Analytics.SDK.Core.Hits
+namespace Google.Analytics.SDK.Core.Services.Response
 {
     public class HitResponse : IResponse
     {
