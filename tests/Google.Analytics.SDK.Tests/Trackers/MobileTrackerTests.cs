@@ -47,6 +47,24 @@ namespace Google.Analytics.SDK.Tests.Trackers
             Assert.True(x.ProtocolVersion != null);
         }
 
+        [Fact]
+        public void Create_SocailHit_Validate_Success()
+        {
+            var socialHit = new SocialHit("Google+","plus", "https://plus.google.com/u/0/+LindaLawton/posts/7oxAdszKB9C");
+
+            Assert.True(socialHit.Validate());
+        }
+
+        [Fact]
+        public void Create_SocailHit_Validate_Fail()
+        {
+            var socialHit =
+                new SocialHit("Google+", "plus", "https://plus.google.com/u/0/+LindaLawton/posts/7oxAdszKB9C")
+                {
+                    SocialActionTarget = null
+                };
+            Assert.False(socialHit.Validate());
+        }
 
     }
 }

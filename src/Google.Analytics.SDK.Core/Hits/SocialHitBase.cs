@@ -10,6 +10,10 @@ namespace Google.Analytics.SDK.Core.Hits
     {
         protected SocialHitBase(string socialNetwork, string socialAction, string socialActionTarget) 
         {
+            if (string.IsNullOrWhiteSpace(SocialNetwork)) throw new ArgumentNullException(socialNetwork);
+            if (string.IsNullOrWhiteSpace(SocialAction)) throw new ArgumentNullException(SocialAction);
+            if (string.IsNullOrWhiteSpace(SocialActionTarget)) throw new ArgumentNullException(SocialActionTarget);
+
             HitType = HitTypes.Social;
             SocialNetwork = socialNetwork;
             SocialAction = socialAction;
@@ -18,7 +22,7 @@ namespace Google.Analytics.SDK.Core.Hits
 
         protected override bool InternalValidate()
         {
-            if(!string.IsNullOrWhiteSpace(SocialNetwork) || !string.IsNullOrWhiteSpace(SocialAction) || !string.IsNullOrWhiteSpace(SocialActionTarget)) return true;
+            if(!string.IsNullOrWhiteSpace(SocialNetwork) && !string.IsNullOrWhiteSpace(SocialAction) && !string.IsNullOrWhiteSpace(SocialActionTarget)) return true;
 
             Console.WriteLine($"Required paramater missing. SocialNetwork={SocialNetwork}, SocialAction={SocialAction}, SocialActionTarget={SocialActionTarget}");
             return false;
