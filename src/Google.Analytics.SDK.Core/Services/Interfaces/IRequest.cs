@@ -10,7 +10,7 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
     {
         string Parms { get; }
 
-        Hit RequestHit { get; }
+        IHit RequestHit { get; }
 
         Task<string> ExecuteAsync(string type);
 
