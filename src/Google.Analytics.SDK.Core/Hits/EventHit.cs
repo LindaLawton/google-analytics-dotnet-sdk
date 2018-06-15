@@ -9,12 +9,12 @@ namespace Google.Analytics.SDK.Core.Hits
 
         }
 
-        public EventHit(string eventcatagory, string eventAction, string eventLabel) : this(eventcatagory, eventAction)
+        public EventHit(string eventcatagory, string eventAction, string eventLabel) : base(eventcatagory, eventAction, eventLabel)
         {
             
         }
 
-        public EventHit(string eventcatagory, string eventAction, string eventLabel, long eventValue) : this(eventcatagory, eventAction, eventLabel)
+        public EventHit(string eventcatagory, string eventAction, string eventLabel, long eventValue) : base(eventcatagory, eventAction, eventLabel, eventValue)
         {
             
         }
