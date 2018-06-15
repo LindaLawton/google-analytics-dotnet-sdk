@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Linda Lawton. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using System;
 using Google.Analytics.SDK.Core.Helper;
 
 namespace Google.Analytics.SDK.Core.Hits
@@ -8,6 +10,9 @@ namespace Google.Analytics.SDK.Core.Hits
     {
         protected EventHitBase(string eventcatagory, string eventAction)
         {
+            if (string.IsNullOrWhiteSpace(eventcatagory)) throw new ArgumentNullException(eventcatagory);
+            if (string.IsNullOrWhiteSpace(eventAction)) throw new ArgumentNullException(eventAction);
+
             HitType = HitTypes.Event;
             EventCategory = eventcatagory;
             EventAction = eventAction;
@@ -27,6 +32,9 @@ namespace Google.Analytics.SDK.Core.Hits
 
         protected override bool InternalValidate()
         {
+            if (!string.IsNullOrWhiteSpace(EventCategory) && !string.IsNullOrWhiteSpace(EventAction)) return true;
+
+            Console.WriteLine($"Required paramater missing. EventCategory={EventCategory}, EventAction={EventAction}");
             return false;
         }
     }
