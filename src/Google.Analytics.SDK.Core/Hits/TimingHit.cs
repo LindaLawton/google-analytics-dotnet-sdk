@@ -4,7 +4,7 @@ namespace Google.Analytics.SDK.Core.Hits
 {
     public class TimingHit : TimingHitBase
     {
-        public TimingHit() : base()
+        public TimingHit(string userTimeingCatagory, string userTimeingVariableName, int userTimingTime) : base(userTimeingCatagory, userTimeingVariableName, userTimingTime)
         {
             
         }

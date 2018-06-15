@@ -422,6 +422,85 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
+        #region Timing
+
+        /// <summary>
+        /// Specifies the user timing category.
+        /// </summary>
+        [Hit(Parm = "utc", Required = true)]
+        public string UserTimingCatagory { get; set; }
+
+        /// <summary>
+        /// Specifies the user timing variable.
+        /// </summary>
+        [Hit(Parm = "utv", Required = true)]
+        public string UserTimingVariableName { get; set; }
+
+
+        /// <summary>
+        /// Specifies the user timing value. The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "utt", Required = true)]
+        public string UserTimingTime { get; set; }
+
+        /// <summary>
+        /// Specifies the user timing label.
+        /// </summary>
+        [Hit(Parm = "utl", Required = false)]
+        public string UserTimingLabel { get; set; }
+
+        /// <summary>
+        /// Specifies the time it took for a page to load. The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "plt", Required = false)]
+        public string PayLoadTime { get; set; }
+
+        /// <summary>
+        /// Specifies the time it took to do a DNS lookup.The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "dns", Required = false)]
+        public string DNSTIme { get; set; }
+
+        /// <summary>
+        /// Specifies the time it took for the page to be downloaded. The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "pdt", Required = false)]
+        public string PageDownloadTIme { get; set; }
+
+        /// <summary>
+        /// Specifies the time it took for any redirects to happen. The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "rrt", Required = false)]
+        public string RedirectResponseTime { get; set; }
+
+        /// <summary>
+        /// Specifies the time it took for a TCP connection to be made. The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "tcp", Required = false)]
+        public string TCPConnectTime { get; set; }
+
+        /// <summary>
+        /// Specifies the time it took for the server to respond after the connect time. The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "srt", Required = false)]
+        public string ServerResponseTime { get; set; }
+
+        /// <summary>
+        /// Specifies the time it took for the DOMContentLoaded Event to fire. The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "clt", Required = false)]
+        public string CurrentLocalTime { get; set; }
+
+
+        /// <summary>
+        /// Specifies the time it took for Document.readyState to be 'interactive'. The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "dit", Required = false)]
+        public string DOMInteractiveTime { get; set; }
+
+        #endregion
+
+
         public bool IsValid { get; set; }
 
         public bool Validate()
