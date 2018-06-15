@@ -1,37 +1,33 @@
 ﻿// Copyright (c) Linda Lawton. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using Google.Analytics.SDK.Core.Helper;
-using Google.Analytics.SDK.Core.Services.Interfaces;
-
 namespace Google.Analytics.SDK.Core.Hits.WebHits
 {
-    public class PageViewHit : Hit
+    public class PageViewHit : PageViewHitBase
     {
         public PageViewHit() : base()
         {
-            HitType = HitTypes.Pageview;
-            DocumentLocationURL = "(not set)";
+            
         }
 
-        public PageViewHit(string documentLocationUrl) : this()
+        public PageViewHit(string documentLocationUrl) : base(documentLocationUrl)
         {
-            DocumentLocationURL = documentLocationUrl;
+            
         }
 
-        public PageViewHit(string documentLocationUrl, string documentHostName) : this( documentLocationUrl)
+        public PageViewHit(string documentLocationUrl, string documentHostName) : base(documentLocationUrl, documentHostName)
         {
-            DocumentHostName = documentHostName;
+            
         }
 
-        public PageViewHit(string documentLocationUrl, string documentHostName, string documentPath) : this(documentLocationUrl, documentHostName)
+        public PageViewHit(string documentLocationUrl, string documentHostName, string documentPath) : base(documentLocationUrl, documentHostName, documentPath)
         {
-            DocumentPath = documentPath;
+            
         }
 
-        public PageViewHit(string documentLocationUrl, string documentHostName, string documentPath, string documentTitle) : this( documentLocationUrl, documentHostName ,documentPath)
+        public PageViewHit(string documentLocationUrl, string documentHostName, string documentPath, string documentTitle) : base(documentLocationUrl, documentHostName, documentPath, documentTitle)
         {
-            DocumentTitle = documentTitle;
+            
         }
 
     }

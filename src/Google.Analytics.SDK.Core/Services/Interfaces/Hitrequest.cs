@@ -9,14 +9,14 @@ using Google.Analytics.SDK.Core.Hits;
 
 namespace Google.Analytics.SDK.Core.Services.Interfaces
 {
-    public class Hitrequest : MustInitialize<Hit>, IRequest
+    public class Hitrequest : MustInitialize<HitBase>, IRequest
     {
         public HttpClient Client { get; }
         public string Parms { get; }
-        public Hit RequestHit { get; }
+        public HitBase RequestHit { get; }
         public string RequestType { get; private set; }
 
-        public Hitrequest(Hit requestHit) : base(requestHit)
+        public Hitrequest(HitBase requestHit) : base(requestHit)
         {
             RequestHit = requestHit;
             Client = HttpClientFactory.CreateClient();

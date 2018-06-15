@@ -9,7 +9,7 @@ using Google.Analytics.SDK.Core.Services.Interfaces;
 
 namespace Google.Analytics.SDK.Core.Hits
 {
-    public class Hit : IHit
+    public abstract class HitBase: IHit
     {
         #region  General
         /// <summary>
@@ -56,7 +56,7 @@ namespace Google.Analytics.SDK.Core.Hits
         /// This field is required if User ID (uid) is not specified in the request. This anonymously identifies a particular user, device, or browser instance. For the web, this is generally stored as a first-party cookie with a two-year expiration. For mobile apps, this is randomly generated for each particular instance of an application install. The value of this field should be a random UUID (version 4) as described in http://www.ietf.org/rfc/rfc4122.txt.
         /// </summary>
         [Hit(Parm = "cid", Required = true)]
-        public string CientId { get; set; } = Guid.NewGuid().ToString();
+        public string ClientId { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// This field is required if Client ID (cid) is not specified in the request. This is intended to be a known identifier for a user provided by the site owner/tracking library user. It must not itself be PII (personally identifiable information). The value should never be persisted in GA cookies or other Analytics provided storage.
@@ -285,7 +285,6 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
-
         #region events
         
         /// <summary>
@@ -384,32 +383,51 @@ namespace Google.Analytics.SDK.Core.Hits
         #endregion
 
 
-        public bool IsValid()
-        {
-            throw new System.NotImplementedException();
-        }
+        public bool IsValid { get; set; }
 
         public bool Validate()
         {
-            throw new System.NotImplementedException();
+            IsValid = false;
+
+            //always
+            if (string.IsNullOrWhiteSpace(ClientId))
+                return false;
+
+
+            return InternalValidate();
         }
+
+        protected virtual bool InternalValidate()
+        {
+            IsValid = true;
+            return IsValid;
+        }
+
 
         public string GetRequest()
         {
             var sb = new StringBuilder();
-
-            var properties = typeof(Hit).GetProperties();
-            foreach (var property in properties)
+            try
             {
-                var name = property.Name;
-                var value = property.GetValue(this);
 
-                if (value == null) continue;
-                sb.Append(this.BuildPropertyString(name));
-                sb.Append("&");
+                var properties = typeof(HitBase).GetProperties();
+                foreach (var property in properties)
+                {
+                    var name = property.Name;
+                    var value = property.GetValue(this);
+
+                    if (value == null) continue;
+                    sb.Append(this.BuildPropertyString(name));
+                    sb.Append("&");
+                }
+
+                return sb.ToString().Substring(0, sb.Length - 1);
             }
-
-            return sb.ToString().Substring(0, sb.Length - 1);
+            catch (Exception e)
+            {
+                Console.WriteLine($"GetRequest failed {e}");
+                throw;
+            }
         }
 
     }
