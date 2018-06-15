@@ -12,6 +12,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         private const string EventAction = "Action";
         private const string EventLabel = "Label";
         private const long EventValue = 1;
+        private const string HitType = HitTypes.Event;
 
 
         [Fact]
@@ -30,6 +31,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
             Assert.Equal(EventAction, hit.EventAction);
             Assert.Equal(EventLabel, hit.EventLabel);
             Assert.Equal(EventValue.ToString(), hit.EventValue);
+            Assert.Equal(HitType, hit.HitType, true);
         }
 
 
@@ -74,14 +76,6 @@ namespace Google.Analytics.SDK.Tests.HitTests
         public void Create_EventHit_Action_Null_throwsException()
         {
             Assert.Throws<ArgumentNullException>(() => new EventHit(EventCategory, string.Empty));
-        }
-
-
-        [Fact]
-        public void Create_PageviewHit_HitType_NotNull()
-        {
-            var hit = new PageViewHit("home");
-            Assert.Equal(hit.HitType, HitTypes.Pageview, ignoreCase: true);
         }
 
     }

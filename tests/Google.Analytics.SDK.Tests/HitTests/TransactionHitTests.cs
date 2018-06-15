@@ -8,6 +8,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
     public class TransactionHitTests
     {
         private const string TransactionId = "123";
+        private const string HitType = HitTypes.Transaction;
 
         [Fact]
         public void Create_TransactionHit_All_Validate_Success()
@@ -21,6 +22,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new TransactionHit(TransactionId);
             Assert.Equal(TransactionId, hit.TransactionId);
+            Assert.Equal(HitType, hit.HitType, true);
         }
 
         [Fact]
@@ -30,13 +32,5 @@ namespace Google.Analytics.SDK.Tests.HitTests
             hit.TransactionId = null;
             Assert.False(hit.Validate());
         }
-
-        [Fact]
-        public void Create_TransactionHit_HitType_Transaction_Sucess()
-        {
-            var hit = new TransactionHit(TransactionId);
-            Assert.Equal(hit.HitType, HitTypes.Transaction, ignoreCase: true);
-        }
-
     }
 }

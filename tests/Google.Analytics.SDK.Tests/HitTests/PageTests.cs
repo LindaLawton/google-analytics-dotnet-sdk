@@ -10,6 +10,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         private const string DocumentHostName = "https://plus.google.com";
         private const string DocumentPath = "/u/0/+LindaLawton/posts/7oxAdszKB9C";
         private const string DocumentTitle = "Welcome to my Developing with Google Collection";
+        private const string HitType = HitTypes.Pageview;
 
         [Fact]
         public void Create_PageViewHit_All_Validate_Success()
@@ -26,6 +27,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
             Assert.Equal(DocumentHostName, hit.DocumentHostName);
             Assert.Equal(DocumentPath, hit.DocumentPath);
             Assert.Equal(DocumentTitle, hit.DocumentTitle);
+            Assert.Equal(HitType, hit.HitType, true);
         }
 
 

@@ -15,6 +15,7 @@ namespace Google.Analytics.SDK.Core.Hits
 
             HitType = HitTypes.Item;
             TransactionId = transactionId;
+            ItemName = itemName;
         }
 
         protected override bool InternalValidate()

@@ -8,6 +8,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
     public class ScreenViewTests
     {
         private const string ScreenName = "Home";
+        private const string HitType = HitTypes.Screenview;
 
         [Fact]
         public void Create_ScreenViewHit_All_Validate_Success()
@@ -21,6 +22,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new ScreenViewHit(ScreenName);
             Assert.Equal(ScreenName, hit.ScreenName);
+            Assert.Equal(HitType, hit.HitType, true);
         }
 
         [Fact]
@@ -35,14 +37,6 @@ namespace Google.Analytics.SDK.Tests.HitTests
         public void Create_SocailHit_SocialNetwork_Null_throwsException()
         {
             Assert.Throws<ArgumentNullException>(() => new ScreenViewHit(string.Empty));
-        }
-
-
-        [Fact]
-        public void Create_ScreenViewHit_HitType_NotNull()
-        {
-            var hit = new ScreenViewHit(ScreenName);
-            Assert.Equal(hit.HitType, HitTypes.Screenview, ignoreCase: true);
         }
 
     }
