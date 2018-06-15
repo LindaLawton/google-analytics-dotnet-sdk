@@ -10,11 +10,11 @@ namespace Google.Analytics.SDK.Core.Hits
     {
         protected SocialHitBase(string socialNetwork, string socialAction, string socialActionTarget) 
         {
-            if (string.IsNullOrWhiteSpace(SocialNetwork)) throw new ArgumentNullException(socialNetwork);
-            if (string.IsNullOrWhiteSpace(SocialAction)) throw new ArgumentNullException(SocialAction);
-            if (string.IsNullOrWhiteSpace(SocialActionTarget)) throw new ArgumentNullException(SocialActionTarget);
-
             HitType = HitTypes.Social;
+
+            if (string.IsNullOrWhiteSpace(socialNetwork)) throw new ArgumentNullException(socialNetwork);
+            if (string.IsNullOrWhiteSpace(socialAction)) throw new ArgumentNullException(SocialAction);
+            if (string.IsNullOrWhiteSpace(socialActionTarget)) throw new ArgumentNullException(SocialActionTarget);
             SocialNetwork = socialNetwork;
             SocialAction = socialAction;
             SocialActionTarget = socialActionTarget;
