@@ -394,10 +394,10 @@ namespace Google.Analytics.SDK.Core.Hits
                 return false;
 
 
-            return InternaValidate();
+            return InternalValidate();
         }
 
-        protected virtual bool InternaValidate()
+        protected virtual bool InternalValidate()
         {
             IsValid = true;
             return IsValid;

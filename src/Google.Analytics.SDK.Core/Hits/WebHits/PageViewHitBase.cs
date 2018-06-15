@@ -32,7 +32,7 @@ namespace Google.Analytics.SDK.Core.Hits.WebHits
             DocumentTitle = documentTitle;
         }
 
-        protected override bool InternaValidate()
+        protected override bool InternalValidate()
         {
             return false;
         }

@@ -12,7 +12,7 @@ namespace Google.Analytics.SDK.Core.Hits
             TransactionId = transactionId;
         }
 
-        protected override bool InternaValidate()
+        protected override bool InternalValidate()
         {
             return false;
         }

@@ -25,7 +25,7 @@ namespace Google.Analytics.SDK.Core.Hits
             EventValue = eventValue.ToString();
         }
 
-        protected override bool InternaValidate()
+        protected override bool InternalValidate()
         {
             return false;
         }

@@ -11,7 +11,7 @@ namespace Google.Analytics.SDK.Core.Hits
             HitType = HitTypes.Social;
         }
 
-        protected override bool InternaValidate()
+        protected override bool InternalValidate()
         {
             return false;
         }

@@ -10,7 +10,7 @@ namespace Google.Analytics.SDK.Core.Hits
         {
             HitType = HitTypes.Exception;
         }
-        protected override bool InternaValidate()
+        protected override bool InternalValidate()
         {
             return false;
         }

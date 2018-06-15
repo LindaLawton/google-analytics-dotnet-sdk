@@ -13,7 +13,7 @@ namespace Google.Analytics.SDK.Core.Hits.MobileHits
             ScreenName = screenName;
         }
 
-        protected override bool InternaValidate()
+        protected override bool InternalValidate()
         {
 
             return false;
