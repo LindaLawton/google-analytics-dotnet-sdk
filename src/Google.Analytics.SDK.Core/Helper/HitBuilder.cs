@@ -10,7 +10,7 @@ namespace Google.Analytics.SDK.Core.Helper
     {
         public static string BuildPropertyString(this IHit hit, string properyName)
         {
-            var pInfo = typeof(Hit).GetProperty(properyName)?.GetCustomAttributes(typeof(HitAttribute), false).Cast<HitAttribute>().FirstOrDefault();
+            var pInfo = typeof(IHit).GetProperty(properyName)?.GetCustomAttributes(typeof(HitAttribute), false).Cast<HitAttribute>().FirstOrDefault();
             
             var value = hit.GetType().GetProperty(properyName)?.GetValue(hit, null);
 

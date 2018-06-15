@@ -10,14 +10,10 @@ namespace Google.Analytics.SDK.Core.Hits
         {
             HitType = HitTypes.Timing;
         }
-        public override bool IsValid()
+        protected override bool InternaValidate()
         {
-            throw new System.NotImplementedException();
-        }
 
-        public bool Validate()
-        {
-            throw new System.NotImplementedException();
+            return false;
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Google.Analytics.SDK.Core.Hits
         /// This field is required if User ID (uid) is not specified in the request. This anonymously identifies a particular user, device, or browser instance. For the web, this is generally stored as a first-party cookie with a two-year expiration. For mobile apps, this is randomly generated for each particular instance of an application install. The value of this field should be a random UUID (version 4) as described in http://www.ietf.org/rfc/rfc4122.txt.
         /// </summary>
         [Hit(Parm = "cid", Required = true)]
-        public string CientId { get; set; } = Guid.NewGuid().ToString();
+        public string ClientId { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// This field is required if Client ID (cid) is not specified in the request. This is intended to be a known identifier for a user provided by the site owner/tracking library user. It must not itself be PII (personally identifiable information). The value should never be persisted in GA cookies or other Analytics provided storage.
@@ -383,12 +383,26 @@ namespace Google.Analytics.SDK.Core.Hits
         #endregion
 
 
-        public abstract bool IsValid();
+        public bool IsValid { get; set; }
 
         public bool Validate()
         {
-            throw new System.NotImplementedException();
+            IsValid = false;
+
+            //always
+            if (string.IsNullOrWhiteSpace(ClientId))
+                return false;
+
+
+            return InternaValidate();
         }
+
+        protected virtual bool InternaValidate()
+        {
+            IsValid = true;
+            return IsValid;
+        }
+
 
         public string GetRequest()
         {

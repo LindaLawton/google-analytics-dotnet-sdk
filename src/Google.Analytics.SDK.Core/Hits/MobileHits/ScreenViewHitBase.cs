@@ -12,14 +12,11 @@ namespace Google.Analytics.SDK.Core.Hits.MobileHits
             HitType = HitTypes.Screenview;
             ScreenName = screenName;
         }
-        public override bool IsValid()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public bool Validate()
+        protected override bool InternaValidate()
         {
-            throw new System.NotImplementedException();
+
+            return false;
         }
     }
 }

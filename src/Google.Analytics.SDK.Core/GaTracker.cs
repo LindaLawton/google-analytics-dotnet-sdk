@@ -67,7 +67,7 @@ namespace Google.Analytics.SDK.Core
 
         public static IRequest CreateHitRequest(this ITracker tracker, HitBase hit)
         {
-            hit.CientId = tracker.ClientId;
+            hit.ClientId = tracker.ClientId;
             hit.WebPropertyId = tracker.TrackingId;
             hit.ApplicationId = tracker.ApplicationId;
             hit.ApplicationName = tracker.ApplicationName;

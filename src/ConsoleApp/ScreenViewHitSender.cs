@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Google.Analytics.SDK.Core;
 using Google.Analytics.SDK.Core.Hits;
+using Google.Analytics.SDK.Core.Hits.MobileHits;
 using Google.Analytics.SDK.Core.Services.Interfaces;
 
 namespace ConsoleApp

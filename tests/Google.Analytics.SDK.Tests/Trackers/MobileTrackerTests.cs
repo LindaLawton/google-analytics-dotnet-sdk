@@ -2,6 +2,7 @@ using System;
 using Google.Analytics.SDK.Core;
 using Google.Analytics.SDK.Core.Helper;
 using Google.Analytics.SDK.Core.Hits;
+using Google.Analytics.SDK.Core.Hits.MobileHits;
 using Google.Analytics.SDK.Core.Hits.WebHits;
 using Xunit;
 
