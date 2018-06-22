@@ -1,18 +1,16 @@
 ﻿// Copyright (c) Linda Lawton. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System;
-using System.Threading.Tasks;
-using Google.Analytics.SDK.Core.Hits;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Google.Analytics.SDK.Core.Services.Interfaces
 {
-    
+
 
     public interface ITracker
     {
-        ILogger Logger { get; }
+        ILogger Logger { get; set; }
         string TrackingId { get; }
         string ClientId { get; }
 

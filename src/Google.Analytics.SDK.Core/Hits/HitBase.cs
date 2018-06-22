@@ -3,6 +3,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Google.Analytics.SDK.Core.Helper;
 using Google.Analytics.SDK.Core.Services.Interfaces;
@@ -10,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Google.Analytics.SDK.Core.Hits
 {
-    public abstract class HitBase: IHit
+    public abstract class HitBase : IHit
     {
         #region  General
         /// <summary>
@@ -500,38 +502,43 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
-
-        public bool IsValid { get; set; }
-
-        public bool Validate()
+        public ValidateResponse LastValidateResponse { get; set; }
+        public bool IsValid
         {
-            IsValid = false;
+            get
+            {
+                if (LastValidateResponse == null)
+                    Validate();
 
-            //always
+                return LastValidateResponse.Valid;
+            }
+        }
+        public ValidateResponse Validate()
+        {
+            // always
             if (string.IsNullOrWhiteSpace(ClientId) || string.IsNullOrWhiteSpace(ProtocolVersion) || string.IsNullOrWhiteSpace(HitType))
             {
-                Console.WriteLine($"Required paramater missing. clientId={ClientId}, ProtocolVersion={ProtocolVersion}, HitType={HitType}" );  
-                IsValid = false;
-                return IsValid;
+                var message =
+                    $"Required paramater missing. clientId={ClientId}, ProtocolVersion={ProtocolVersion}, HitType={HitType}";
+                LastValidateResponse = ValidateResponse.Builder(false, message);
+                return LastValidateResponse;
             }
-
-
-            IsValid = InternalValidate();
-            return IsValid;
+            LastValidateResponse = InternalValidate();
+            //LastValidateResponse = ValidateResponse.Builder(true, string.Empty);
+            return LastValidateResponse;
         }
 
-        protected virtual bool InternalValidate()
+        protected virtual ValidateResponse InternalValidate()
         {
-            return true;
+            return ValidateResponse.Builder(true, string.Empty);
         }
-
 
         public string GetRequest()
         {
-            var sb = new StringBuilder();
+            var sb = new List<string>();
+            
             try
             {
-
                 var properties = typeof(HitBase).GetProperties();
                 foreach (var property in properties)
                 {
@@ -539,11 +546,13 @@ namespace Google.Analytics.SDK.Core.Hits
                     var value = property.GetValue(this);
 
                     if (value == null) continue;
-                    sb.Append(this.BuildPropertyString(name));
-                    sb.Append("&");
-                }
 
-                return sb.ToString().Substring(0, sb.Length - 1);
+                    var propertyAndValue = this.BuildPropertyString(name);
+
+                    if(propertyAndValue != string.Empty)
+                        sb.Add(this.BuildPropertyString(name));
+                }
+                return string.Join("&", sb);
             }
             catch (Exception e)
             {
@@ -552,5 +561,16 @@ namespace Google.Analytics.SDK.Core.Hits
             }
         }
 
+    }
+
+    public class ValidateResponse
+    {
+        public bool Valid { get; set; }
+        public string Message { get; set; }
+
+        public static ValidateResponse Builder(bool valid, string message)
+        {
+            return new ValidateResponse { Message = message, Valid = valid };
+        }
     }
 }

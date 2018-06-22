@@ -19,12 +19,12 @@ namespace Google.Analytics.SDK.Core.Hits
             UserTimingTime = userTimingTime.ToString();
             HitType = HitTypes.Timing;
         }
-        protected override bool InternalValidate()
+        protected override ValidateResponse InternalValidate()
         {
-            if (!string.IsNullOrWhiteSpace(UserTimingCatagory) && !string.IsNullOrWhiteSpace(UserTimingVariableName) && !string.IsNullOrWhiteSpace(UserTimingTime)) return true;
-
-            Console.WriteLine($"Required paramater missing. UserTimingCatagory={UserTimingCatagory}, UserTimingVariableName={UserTimingVariableName}, UserTimingTime={UserTimingTime}");
-            return false;
+            LastValidateResponse = (!string.IsNullOrWhiteSpace(UserTimingCatagory) && !string.IsNullOrWhiteSpace(UserTimingVariableName) && !string.IsNullOrWhiteSpace(UserTimingTime))
+                ? ValidateResponse.Builder(true,string.Empty)
+                : ValidateResponse.Builder(false,$"Required paramater missing. UserTimingCatagory={UserTimingCatagory}, UserTimingVariableName={UserTimingVariableName}, UserTimingTime={UserTimingTime}");
+            return LastValidateResponse;
         }
     }
 }

@@ -1,9 +1,8 @@
-using System;
 using Google.Analytics.SDK.Core;
 using Google.Analytics.SDK.Core.Helper;
-using Google.Analytics.SDK.Core.Hits;
 using Google.Analytics.SDK.Core.Hits.MobileHits;
 using Google.Analytics.SDK.Core.Hits.WebHits;
+using System;
 using Xunit;
 
 namespace Google.Analytics.SDK.Tests.Trackers
@@ -15,7 +14,7 @@ namespace Google.Analytics.SDK.Tests.Trackers
         [Fact]
         public void Assert_BuildMobileTracker_Builds_MobileTracker()
         {
-            var tracker = TrackerBuilder.BuildMobileTracker(WebPropertyId);
+            var tracker = GaTrackerBuilder.BuildMobileTracker(WebPropertyId);
             Assert.Equal(tracker.Type, GaTrackerType.Mobile);
             Assert.NotNull(tracker.ApplicationName);
             Assert.NotNull(tracker.ClientId);
@@ -25,14 +24,14 @@ namespace Google.Analytics.SDK.Tests.Trackers
         [Fact]
         public void BuildMobileTracker_Null_WebProperty_ThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => TrackerBuilder.BuildMobileTracker(null));
+            Assert.Throws<ArgumentNullException>(() => GaTrackerBuilder.BuildMobileTracker(null));
         }
 
         
         [Fact]
         public void BuildWebTracker()
         {
-            var tracker = TrackerBuilder.BuildWebTracker("UA-0000-1");
+            var tracker = GaTrackerBuilder.BuildWebTracker("UA-0000-1");
 
             var pageHit = new PageViewHit("X");
 

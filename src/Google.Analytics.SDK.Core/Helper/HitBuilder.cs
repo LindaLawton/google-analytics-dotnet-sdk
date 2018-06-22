@@ -17,7 +17,7 @@ namespace Google.Analytics.SDK.Core.Helper
 
                 if (pInfo == null) return string.Empty;  // Ignore properties without custom attributes.
 
-                var value = hit.GetType().GetProperty(properyName)?.GetValue(hit, null);
+                var value = Uri.EscapeUriString(hit.GetType().GetProperty(properyName)?.GetValue(hit, null).ToString().Trim());
 
                 return $"{pInfo.Parm}={value}";
             }

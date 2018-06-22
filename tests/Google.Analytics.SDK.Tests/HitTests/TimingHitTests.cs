@@ -20,7 +20,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         public void Create_PageViewHit_All_Validate_Success()
         {
             var hit = new TimingHit(UserTimeingCatagory, UserTimeingVariableName, UserTimingTime);
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]

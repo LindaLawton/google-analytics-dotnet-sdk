@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Analytics.SDK.Core;
 using Google.Analytics.SDK.Core.Hits.WebHits;
 using Google.Analytics.SDK.Core.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace ConsoleApp
 {
@@ -31,20 +33,27 @@ namespace ConsoleApp
             };
 
             var request = (Hitrequest)tracker.CreateHitRequest(hit);
+            tracker.Logger.LogTrace("Request Parms:{parms}", request.Parms);
 
             var debugResponse = Task.Run(() => request.ExecuteDebugAsync());
             debugResponse.Wait();
-            Console.Write(debugResponse.Result.RawResponse);
+
+            tracker.Logger.LogDebug("Raw Response {response}", debugResponse.Result.RawResponse);
 
             var response = (DebugResult)debugResponse.Result;
 
-            if (!response.Response.hitParsingResult.FirstOrDefault().valid) return false;
+            if (response.Response.hitParsingResult.FirstOrDefault() == null ||
+                !response.Response.hitParsingResult.FirstOrDefault().valid)
+            {
+                tracker.Logger.LogError("Request is not valid {response}", debugResponse.Result.RawResponse);
+                return false;
+            }
 
-            Console.Write(response.Response.hitParsingResult.FirstOrDefault().valid);
+            tracker.Logger.LogInformation("Request is valid {response}", debugResponse.Result.RawResponse);
 
             var collectRequest = Task.Run(() => request.ExecuteCollectAsync());
             collectRequest.Wait();
-            Console.Write(collectRequest.Result.RawResponse);
+            tracker.Logger.LogDebug("Raw Response {response}", debugResponse.Result.RawResponse);
 
             return true;
 

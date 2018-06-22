@@ -15,12 +15,12 @@ namespace Google.Analytics.SDK.Core.Hits.MobileHits
             ScreenName = screenName;
         }
 
-        protected override bool InternalValidate()
+        protected override ValidateResponse InternalValidate()
         {
-            if (!string.IsNullOrWhiteSpace(ScreenName)) return true;
-
-            Console.WriteLine($"Required paramater missing. ScreenName={ScreenName}");
-            return false;
+            LastValidateResponse =  (!string.IsNullOrWhiteSpace(ScreenName)) 
+                ? ValidateResponse.Builder(true, string.Empty) 
+                :  ValidateResponse.Builder(false, $"Required paramater missing. ScreenName={ScreenName}");
+            return LastValidateResponse;
         }
     }
 }

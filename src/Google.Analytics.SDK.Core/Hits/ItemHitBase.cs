@@ -18,12 +18,12 @@ namespace Google.Analytics.SDK.Core.Hits
             ItemName = itemName;
         }
 
-        protected override bool InternalValidate()
+        protected override ValidateResponse InternalValidate()
         {
-            if (!string.IsNullOrWhiteSpace(TransactionId) && !string.IsNullOrWhiteSpace(ItemName)) return true;
-
-            Console.WriteLine($"Required paramater missing. TransactionId={TransactionId}, ItemName={ItemName}");
-            return false;
+            LastValidateResponse = (!string.IsNullOrWhiteSpace(TransactionId) && !string.IsNullOrWhiteSpace(ItemName))
+                ? ValidateResponse.Builder(true, string.Empty)
+                : ValidateResponse.Builder(false, $"Required paramater missing. TransactionId={TransactionId}, ItemName={ItemName}");
+            return LastValidateResponse;
         }
     }
 }

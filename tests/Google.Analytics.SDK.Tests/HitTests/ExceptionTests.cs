@@ -15,15 +15,17 @@ namespace Google.Analytics.SDK.Tests.HitTests
         public void Create_ExceptionHit_All_Validate_Success()
         {
             var hit = new ExceptionHit(ExecptionDescription, ExecptionIsFatal);
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
         public void Create_ExceptionHit_All_Validate_Values()
         {
+            const string fatal = "0";
+
             var hit = new ExceptionHit(ExecptionDescription, ExecptionIsFatal);
             Assert.Equal(ExecptionDescription, hit.ExceptionDescription);
-            Assert.Equal(hit.ExceptionIsFatal, "0");
+            Assert.Equal(hit.ExceptionIsFatal, fatal);
             Assert.Equal(HitType, hit.HitType, true);
         }
 
@@ -33,7 +35,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
             var hit = new ExceptionHit(ExecptionDescription, ExecptionIsFatal);
             hit.ExceptionIsFatal = "goboom";
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => hit.Validate());
+            Assert.False(hit.Validate().Valid);
         }
 
     }

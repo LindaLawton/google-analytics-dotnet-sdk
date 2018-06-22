@@ -5,6 +5,6 @@ namespace Google.Analytics.SDK.Core.Hits
 {
     public interface IHit
     {
-        bool Validate();
+        ValidateResponse Validate();
     }
 }

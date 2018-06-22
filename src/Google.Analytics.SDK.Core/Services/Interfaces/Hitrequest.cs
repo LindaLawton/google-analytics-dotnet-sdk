@@ -6,6 +6,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Google.Analytics.SDK.Core.Hits;
+using Microsoft.Extensions.Logging;
 
 namespace Google.Analytics.SDK.Core.Services.Interfaces
 {
@@ -16,17 +17,21 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
         public HitBase RequestHit { get; }
         public string RequestType { get; private set; }
 
-        public Hitrequest(HitBase requestHit) : base(requestHit)
+        private ILogger _logger;
+
+        public Hitrequest(HitBase requestHit, ILogger logger) : base(requestHit)
         {
             RequestHit = requestHit;
             Client = HttpClientFactory.CreateClient();
             RequestType = HttpClientRequestType.Get;
             Parms = requestHit.GetRequest();
-
+            _logger = logger;
+            _logger.LogInformation("Hit request created for hit type {type}", requestHit.HitType);
         }
 
         public async Task<IResult> ExecuteCollectAsync()
         {
+            _logger.LogInformation("Sending collect for hit type {type}", RequestHit.HitType);
             RequestType = HttpClientRequestType.Post;
             var results = await ExecuteAsync(GoogleAnalyticsEndpoints.Collect);
         
@@ -35,6 +40,7 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
 
         public async Task<IResult> ExecuteDebugAsync()
         {
+            _logger.LogInformation("Sending debug for hit type {type}", RequestHit.HitType);
             RequestType = HttpClientRequestType.Get;
             var results =  await ExecuteAsync(GoogleAnalyticsEndpoints.Debug);
 
@@ -45,19 +51,25 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
         {
             if (HttpClientRequestType.Post.Equals(RequestType))
             {
-                var stringContent = new StringContent(Parms);  
+                _logger.LogTrace("Collect Hit: ");
+                var stringContent = new StringContent(Parms);
+                _logger.LogTrace("Parms: {parms}", stringContent);
                 var response =  await Client.PostAsync(type, stringContent);
-                var contents = await response.Content.ReadAsStringAsync();
-                return contents;
+                _logger.LogTrace("response {response}", response);
+                var content = await response.Content.ReadAsStringAsync();
+                _logger.LogTrace("content {content}", content);
+                return content;
             }
             try
             {
+                _logger.LogTrace("Debug Hit: ");
                 var hold = GoogleAnalyticsEndpoints.Host + type + "?" + Parms;
+                _logger.LogTrace("Get: {url} ", hold);
                 return  await Client.GetStringAsync(type + "?" + Parms);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+               _logger.LogError("Send failed {exception}",e);
                 throw;
             }
         }
@@ -74,20 +86,6 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
 
             return response;
         }
-        /// <summary>
-        /// Request hits will e sent as HTTP POST when posible.
-        /// </summary>
-        public void SetRequestTypePost()
-        {
-            RequestType = HttpClientRequestType.Post;
-        }
-
-        /// <summary>
-        /// Request hits will be send as HTTP GET when posible
-        /// </summary>
-        public void SetRequestTypeGet()
-        {
-            RequestType = HttpClientRequestType.Get;
-        }
+      
     }
 }

@@ -19,7 +19,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         public void Create_EventHit_All_Validate_Success()
         {
             var hit = new EventHit(EventCategory, EventAction, EventLabel, EventValue);
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
@@ -39,14 +39,14 @@ namespace Google.Analytics.SDK.Tests.HitTests
         public void Create_EventHit_NoValue_Validate_Success()
         {
             var hit = new EventHit(EventCategory, EventAction, EventLabel);
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
         public void Create_EventHit_NoLabel_Validate_Success()
         {
             var hit = new EventHit(EventCategory, EventAction);
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
 
@@ -55,7 +55,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new EventHit(EventCategory, EventAction);
             hit.EventCategory = null;
-            Assert.False(hit.Validate());
+            Assert.False(hit.Validate().Valid);
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new EventHit(EventCategory, EventAction);
             hit.EventAction = null;
-            Assert.False(hit.Validate());
+            Assert.False(hit.Validate().Valid);
         }
 
         [Fact]

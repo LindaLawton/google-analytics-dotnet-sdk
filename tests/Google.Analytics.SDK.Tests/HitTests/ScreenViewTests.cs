@@ -14,7 +14,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         public void Create_ScreenViewHit_All_Validate_Success()
         {
             var hit = new ScreenViewHit(ScreenName);
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new ScreenViewHit(ScreenName);
             hit.ScreenName = null;
-            Assert.False(hit.Validate());
+            Assert.False(hit.Validate().Valid);
         }
 
         [Fact]

@@ -16,7 +16,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         public void Create_PageViewHit_All_Validate_Success()
         {
             var hit = new PageViewHit(DocumentLocationUrl, DocumentHostName, DocumentPath, DocumentTitle);
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new PageViewHit(DocumentLocationUrl, DocumentHostName, DocumentPath);
 
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new PageViewHit(DocumentLocationUrl, DocumentHostName);
 
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
@@ -52,14 +52,14 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new PageViewHit(DocumentLocationUrl);
 
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
         public void Create_PageViewHit_No_DocumentURL_Validate_Success()
         {
             var hit = new PageViewHit();
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new PageViewHit();
             hit.DocumentLocationURL = null;
-            Assert.False(hit.Validate());
+            Assert.False(hit.Validate().Valid);
         }
 
         [Fact]

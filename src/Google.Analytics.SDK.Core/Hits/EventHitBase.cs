@@ -30,12 +30,13 @@ namespace Google.Analytics.SDK.Core.Hits
             EventValue = eventValue.ToString();
         }
 
-        protected override bool InternalValidate()
+        protected override ValidateResponse InternalValidate()
         {
-            if (!string.IsNullOrWhiteSpace(EventCategory) && !string.IsNullOrWhiteSpace(EventAction)) return true;
+            LastValidateResponse = (!string.IsNullOrWhiteSpace(EventCategory) && !string.IsNullOrWhiteSpace(EventAction)) 
+                ? ValidateResponse.Builder(true, string.Empty)
+                : ValidateResponse.Builder(false, $"Required paramater missing. EventCategory={EventCategory}, EventAction={EventAction}");
 
-            Console.WriteLine($"Required paramater missing. EventCategory={EventCategory}, EventAction={EventAction}");
-            return false;
+            return LastValidateResponse;
         }
     }
 }

@@ -24,12 +24,13 @@ namespace Google.Analytics.SDK.Core.Hits
         }
 
 
-        protected override bool InternalValidate()
+        protected override ValidateResponse InternalValidate()
         {
-            if (string.IsNullOrWhiteSpace(ExceptionIsFatal) || ExceptionIsFatal == "1" ||
-                ExceptionIsFatal == "0") return true;
-
-            throw new ArgumentOutOfRangeException("ExceptionIsFatal", "must be empty, 1 or 0");
+            LastValidateResponse = (string.IsNullOrWhiteSpace(ExceptionIsFatal) || ExceptionIsFatal == "1" ||
+                                    ExceptionIsFatal == "0")
+                ? ValidateResponse.Builder(true, string.Empty)
+                : ValidateResponse.Builder(false, $"ExceptionIsFatal must be 1 or 0. ExceptionIsFatal={ExceptionIsFatal}");
+            return LastValidateResponse;
         }
     }
 }

@@ -20,12 +20,12 @@ namespace Google.Analytics.SDK.Core.Hits
             SocialActionTarget = socialActionTarget;
         }
 
-        protected override bool InternalValidate()
+        protected override ValidateResponse InternalValidate()
         {
-            if(!string.IsNullOrWhiteSpace(SocialNetwork) && !string.IsNullOrWhiteSpace(SocialAction) && !string.IsNullOrWhiteSpace(SocialActionTarget)) return true;
-
-            Console.WriteLine($"Required paramater missing. SocialNetwork={SocialNetwork}, SocialAction={SocialAction}, SocialActionTarget={SocialActionTarget}");
-            return false;
+            LastValidateResponse = (!string.IsNullOrWhiteSpace(SocialNetwork) && !string.IsNullOrWhiteSpace(SocialAction) && !string.IsNullOrWhiteSpace(SocialActionTarget))
+                ? ValidateResponse.Builder(true, string.Empty)
+                : ValidateResponse.Builder(false,$"Required paramater missing. SocialNetwork={SocialNetwork}, SocialAction={SocialAction}, SocialActionTarget={SocialActionTarget}");
+            return LastValidateResponse;
         }
     }
 }

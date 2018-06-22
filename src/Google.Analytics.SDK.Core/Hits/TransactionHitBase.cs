@@ -15,13 +15,12 @@ namespace Google.Analytics.SDK.Core.Hits
             TransactionId = transactionId;
         }
 
-        protected override bool InternalValidate()
+        protected override ValidateResponse InternalValidate()
         {
-            if (!string.IsNullOrWhiteSpace(TransactionId)) return true;
-
-            Console.WriteLine($"Required paramater missing. TransactionId={TransactionId}");
-            return false;
+            LastValidateResponse = (!string.IsNullOrWhiteSpace(TransactionId))
+                ? ValidateResponse.Builder(true, string.Empty)
+                : ValidateResponse.Builder(false, $"Required paramater missing. TransactionId={TransactionId}");
+            return LastValidateResponse;
         }
-
     }
 }

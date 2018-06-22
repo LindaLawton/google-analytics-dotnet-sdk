@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Google.Analytics.SDK.Core.Helper;
+﻿using Google.Analytics.SDK.Core.Helper;
 using Xunit;
 
 namespace Google.Analytics.SDK.Tests.Services
@@ -12,7 +9,7 @@ namespace Google.Analytics.SDK.Tests.Services
         [Fact]
         public void CreateClient()
         {
-            var tracker = Core.TrackerBuilder.BuildMobileTracker("x");
+            var tracker = Core.GaTrackerBuilder.BuildMobileTracker("x");
             Assert.Equal(tracker.Type, GaTrackerType.Mobile);
         }
     }

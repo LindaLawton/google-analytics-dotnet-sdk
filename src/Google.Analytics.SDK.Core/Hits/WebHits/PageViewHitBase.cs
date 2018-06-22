@@ -36,12 +36,12 @@ namespace Google.Analytics.SDK.Core.Hits.WebHits
             DocumentTitle = documentTitle;
         }
 
-        protected override bool InternalValidate()
+        protected override ValidateResponse InternalValidate()
         {
-            if (!string.IsNullOrWhiteSpace(DocumentLocationURL)) return true;
-
-            Console.WriteLine($"Required paramater missing. DocumentLocationURL={DocumentLocationURL}");
-            return false;
+            LastValidateResponse =  (!string.IsNullOrWhiteSpace(DocumentLocationURL))
+                 ? ValidateResponse.Builder(true, string.Empty) 
+                 : ValidateResponse.Builder(false, $"Required paramater missing. DocumentLocationURL={DocumentLocationURL}");
+            return LastValidateResponse;
         }
 
     }

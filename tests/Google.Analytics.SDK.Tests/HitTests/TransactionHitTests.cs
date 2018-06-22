@@ -14,7 +14,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         public void Create_TransactionHit_All_Validate_Success()
         {
             var hit = new TransactionHit(TransactionId);
-            Assert.True(hit.Validate());
+            Assert.True(hit.Validate().Valid);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new TransactionHit(TransactionId);
             hit.TransactionId = null;
-            Assert.False(hit.Validate());
+            Assert.False(hit.Validate().Valid);
         }
     }
 }
