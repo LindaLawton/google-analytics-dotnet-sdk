@@ -18,9 +18,6 @@ namespace ConsoleApp
 
     class Program
     {
-
-
-
         static void Main(string[] args)
         {
             MyTracker.Initialize();
@@ -36,32 +33,18 @@ namespace ConsoleApp
             tracker.ConfigurLogging(serviceProvider.GetService<ILogger<GaTracker>>());
             var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger<Program>();
 
-
             logger.LogCritical("Critical error");
             logger.LogTrace("trace info");
 
 
             PageViewHItSender.Send(tracker);
-           // EventHitSender.Send(tracker);
+            EventHitSender.Send(tracker);
 
             //var trackerMobile = GaTrackerBuilder.BuildMobileTracker("UA-59183475-3");
             //ScreenViewHitSender.Send(trackerMobile);
             //EventHitSender.Send(trackerMobile);
 
-            //https://www.blinkingcaret.com/2018/02/14/net-core-console-logging/
-
             Console.WriteLine("Hello World!");
         }
-
-        private static void ConfigureServices(IServiceCollection services)
-        {
-            services.AddLogging(configure => configure.AddConsole())
-                .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information)
-                .AddTransient<Program>();
-        }
-
     }
-
-
-
 }
