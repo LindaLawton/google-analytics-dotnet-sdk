@@ -3,7 +3,12 @@ mono: none
 dotnet: 2.1
 dist: trusty
 
-# Install the .NET Core 1.0 runtime as that's what we build and test against
+# Add build var for release.
+env:
+BUILD_CONFIGURATION=Release
+NUPKG_DIR=$(pwd)/NuPkgs/Generated
+
+# Install the .NET Core 2.0 runtime as that's what we build and test against
 addons:
   apt:
     sources:
@@ -14,9 +19,10 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.1.5
 
 script:
-  - dotnet build -c Release src/Google.Analytics.SDK.Core
-  - dotnet build -c Release tests/Google.Analytics.SDK.Tests
-  - dotnet test -c Release tests/Google.Analytics.SDK.Tests 
-  
+  - dotnet build -c $BUILD_CONFIGURATION src/Google.Analytics.SDK.Core
+  - dotnet build -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests
+  - dotnet test -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests 
+  - dotnet pack src/Google.Analytics.SDK.Core --configuration $BUILD_CONFIGURATION --no-restore --no-build --output $NUPKG_DIR
+  - ls -la $NUPKG_DIR
   
   
