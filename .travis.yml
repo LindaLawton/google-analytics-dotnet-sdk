@@ -20,9 +20,7 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.1.5
 
 script:
-  - mkdir -p NuPkg
-  - echo $NUPKG_DIR
-  - ls -la $DEPLOY_DIR
+  - mkdir -p NuPkg    
   - ./BuildSupport.sh $NUPKG_DIR $DEPLOY_DIR
 #deploy:
   #skip_cleanup: true
