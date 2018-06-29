@@ -24,8 +24,6 @@ export CI=true
 dotnet build -c $BUILD_CONFIGURATION src/Google.Analytics.SDK.Core
 dotnet build -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests
 dotnet test -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests 
-dotnet pack src/Google.Analytics.SDK.Core --configuration $BUILD_CONFIGURATION --no-restore --no-build --output $NUPKG_DIR
-
- # /p:NuspecFile=$NUSPEC_PATH
+dotnet pack src/Google.Analytics.SDK.Core --configuration $BUILD_CONFIGURATION --no-restore --no-build --output $NUPKG_DIR  /p:NuspecFile=$NUSPEC_PATH
 
 ls -la $NUPKG_DIR
