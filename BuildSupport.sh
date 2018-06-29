@@ -3,6 +3,8 @@
 # -e  Exit immediately if a command exits with a non-zero status.
 set -e
 
+ -NoDefaultExcludes
+
 echo "Building project"
 
 # Directory to output Nuget Package to.
@@ -11,7 +13,7 @@ mkdir -p NuPkg
 # Final output directory of NuPkgs.
 NUPKG_DIR="$(pwd)/NuPkg"
 # Final output directory of NuPkgs.
-NUSPEC_PATH="$(pwd)/deploy/.nuspec"
+NUSPEC_PATH="$(pwd)/deploy/nuspec"
 # Build configuration to build/pack.
 BUILD_CONFIGURATION=Release
 
