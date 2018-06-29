@@ -10,12 +10,13 @@ mkdir -p NuPkgs/Support
 # Final output directory of NuPkgs.
 NUPKG_DIR="$(pwd)/NuPkgs/Support"
 # Final output directory of NuPkgs.
-NUSPEC_PATH=`pwd`/deploy/.nuspec
+NUSPEC_PATH="$(pwd)/deploy/.nuspec"
 # Build configuration to build/pack.
 BUILD_CONFIGURATION=Release
 
 echo $NUPKG_DIR
 ls -la $NUPKG_DIR
+echo $NUSPEC_PATH
 
 # Forces sourcelink to work during the build.
 export CI=true
