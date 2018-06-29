@@ -23,7 +23,7 @@ script:
   - mkdir -p NuPkg
   - echo $NUPKG_DIR
   - ls -la $DEPLOY_DIR
-  #- ./BuildSupport.sh  $NUPKG_DIR 
+  - ./BuildSupport.sh $NUPKG_DIR $DEPLOY_DIR
 #deploy:
   #skip_cleanup: true
   #provider: script
