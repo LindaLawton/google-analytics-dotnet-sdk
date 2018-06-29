@@ -6,12 +6,12 @@ set -e
 echo "Building project"
 
 # Directory to output Nuget Package to.
-mkdir -p NuPkg
+#mkdir -p NuPkg
 
 # Final output directory of NuPkgs.
-NUPKG_DIR="$(pwd)/NuPkg"
+NUPKG_DIR=$1
 # Final output directory of NuPkgs.
-NUSPEC_PATH="$(pwd)/deploy/.nuspec"
+NUSPEC_PATH="$2/.nuspec"
 # Build configuration to build/pack.
 BUILD_CONFIGURATION=Release
 
