@@ -24,10 +24,11 @@ script:
   - dotnet test -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests 
   - dotnet pack src/Google.Analytics.SDK.Core --configuration $BUILD_CONFIGURATION --no-restore --no-build --output $NUPKG_DIR
   - ls -la $NUPKG_DIR
+  - ls -la /deploy
 deploy:
   skip_cleanup: true
   provider: script
-  script: chmod +x deploy.sh && deploy.sh $NuGetAPIKey $NUPKG_DIR
+  script: chmod +x /deploy/deploy.sh && /deploy/deploy.sh $NuGetAPIKey $NUPKG_DIR
   on:
     branch: master
   
