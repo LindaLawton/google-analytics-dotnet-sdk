@@ -1,8 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.1-beta</Version>
+    <PackageId>Daimto.Google.Analytics.Tracker.SDK</PackageId>
+    <Authors>Linda Lawton</Authors>
+    <Company>Daimto</Company>
+    <Product>Daimto.Google.Analytics.Tracker.SDK</Product>   
+    <Copyright>Copyright ©2018 Linda Lawton (Daimto)</Copyright>
+    <Description>The Google Analytics SDK is designed makes it easy to connect .net Applications to Google Analytics.
+
+The Google Analytics SDK uses the Google Analytics measurement protocol to record Hits via HTTP POST or GET requests directly to Google Analytics. The Google Analytics SDK also supports the debug endpoint which will allows developers to test and validate their hits before releasing their applicaitons to production.
+
+The Google Analytics SDK supports tracking for the following interaction (Hit) types: 'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'.
+
+Supported Platforms:
+     - .NET Framework 4.5+
+     - NetStandard1.3, providing .NET Core support.</Description>
+    <PackageLicenseUrl>https://opensource.org/licenses/Apache-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/LindaLawton/google-analytics-dotnet-sdk</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LindaLawton/google-analytics-dotnet-sdk</RepositoryUrl>
+    <PackageTags>Google analytics tracker measurement protocol</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
