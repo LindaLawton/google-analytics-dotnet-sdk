@@ -3,6 +3,7 @@ NUPKG_DIR=$2
 
 echo "Deploy start."
 echo $NUPKG_DIR
+echo $TestSettings
 
 nuget pack .nuspec -Verbosity detailed
 
