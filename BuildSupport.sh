@@ -2,17 +2,20 @@
 
 set -e
 
+echo "Building support"
+
 # "nuget restore" fails if local package source directories don't exist.
 mkdir -p NuPkgs/Support
 
 # Final output directory of NuPkgs.
-NUPKG_DIR=`pwd`/NuPkgs/Support
+NUPKG_DIR="$(pwd)/NuPkgs/Support"
 # Final output directory of NuPkgs.
 NUSPEC_PATH=`pwd`/deploy/.nuspec
 # Build configuration to build/pack.
 BUILD_CONFIGURATION=Release
 
-echo $NUSPEC_PATH
+echo $NUPKG_DIR
+ls -la $NUPKG_DIR
 
 # Forces sourcelink to work during the build.
 export CI=true
