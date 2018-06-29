@@ -24,7 +24,8 @@ script:
   - dotnet test -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests 
   - dotnet pack src/Google.Analytics.SDK.Core --configuration $BUILD_CONFIGURATION --no-restore --no-build --output $NUPKG_DIR /p:NuspecFile=deploy/.nuspec
   - ls -la $NUPKG_DIR 
-  - ls -la /delploy
+  - pwd
+  - ls -la /deploy
 #deploy:
   #skip_cleanup: true
   #provider: script
