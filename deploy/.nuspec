@@ -1,8 +1,24 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
+	   
+	
         <!-- The identifier that must be unique within the hosting gallery -->
-        <id>Google.Analytics.SDK</id>
+        <id>Daimto.Google.Analytics.Tracker.SDK</id>
+		
+		<!-- Title of the package -->
+		<title>Daimto.Google.Analytics.Tracker.SDK</title>
+		
+		<summary>The Google Analytics SDK is designed makes it easy to connect .net Applications to Google Analytics.
+
+The Google Analytics SDK uses the Google Analytics measurement protocol to record Hits via HTTP POST or GET requests directly to Google Analytics. The Google Analytics SDK also supports the debug endpoint which will allows developers to test and validate their hits before releasing their applicaitons to production.
+
+The Google Analytics SDK supports tracking for the following interaction (Hit) types: 'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'.
+
+Supported Platforms:
+     - .NET Framework 4.5+
+     - NetStandard1.3, providing .NET Core support.
+</summary>
 
         <!-- The package version number that is used when resolving dependencies -->
         <version>1.0.0-beta</version>
