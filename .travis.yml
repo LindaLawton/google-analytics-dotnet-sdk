@@ -26,11 +26,12 @@ script:
   - ls -la $NUPKG_DIR/*.nupkg
   - ls -la ./deploy
   - chmod +x ./deploy/deploy.sh
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: ./deploy/deploy.sh null $NUPKG_DIR
-  on:
-    branch: master
+  - ./deploy/deploy.sh null $NUPKG_DIR
+#deploy:
+  #skip_cleanup: true
+  #provider: script
+  #script: ./deploy/deploy.sh null $NUPKG_DIR
+  #on:
+   # branch: master
   
   
