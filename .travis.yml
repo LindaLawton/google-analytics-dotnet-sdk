@@ -5,8 +5,8 @@ dist: trusty
 
 # Add build var for release.
 env:
-BUILD_CONFIGURATION=Release
-NUPKG_DIR=$(pwd)/NuPkgs/Generated
+  BUILD_CONFIGURATION=Release
+  NUPKG_DIR=$(pwd)/NuPkgs/Generated
 
 # Install the .NET Core 2.0 runtime as that's what we build and test against
 addons:
