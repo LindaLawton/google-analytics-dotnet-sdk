@@ -3,8 +3,6 @@
 # -e  Exit immediately if a command exits with a non-zero status.
 set -e
 
- -NoDefaultExcludes
-
 echo "Building project"
 
 # Directory to output Nuget Package to.
