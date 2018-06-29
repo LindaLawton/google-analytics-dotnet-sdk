@@ -20,14 +20,14 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.1.5
 
 script:
-  - dotnet build -c $BUILD_CONFIGURATION src/Google.Analytics.SDK.Core
-  - dotnet build -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests
-  - dotnet test -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests 
-  - dotnet pack src/Google.Analytics.SDK.Core --configuration $BUILD_CONFIGURATION --no-restore --no-build --output $NUPKG_DIR /p:NuspecFile=deploy/.nuspec
+  #- dotnet build -c $BUILD_CONFIGURATION src/Google.Analytics.SDK.Core
+  #- dotnet build -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests
+  #- dotnet test -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests 
+  #- dotnet pack src/Google.Analytics.SDK.Core --configuration $BUILD_CONFIGURATION --no-restore --no-build --output $NUPKG_DIR /p:NuspecFile=deploy/.nuspec
   - ls -la $NUPKG_DIR
   - ls -la $DEPLOY_DIR
   - pwd
-  - ls -la 
+  - echo $DEPLOY_DIR
 #deploy:
   #skip_cleanup: true
   #provider: script
