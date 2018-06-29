@@ -30,7 +30,7 @@ script:
 #deploy:
   #skip_cleanup: true
   #provider: script
-  #script: ./deploy/deploy.sh $NUPKG_DIR
+  #script: ./deploy/deploy.sh $TestSettings
   #on:
    # branch: master
   
