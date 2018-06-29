@@ -26,11 +26,10 @@ script:
   - ls -la $NUPKG_DIR/*.nupkg
   - ls -la ./deploy
   - chmod +x ./deploy/deploy.sh
-  - ./deploy/deploy.sh $NuGetAPIKey $NUPKG_DIR
 deploy:
   skip_cleanup: true
   provider: script
-  script: chmod +x ./deploy/deploy.sh && ./deploy/deploy.sh $NuGetAPIKey $NUPKG_DIR
+  script: bash deploy/deploy.sh $NuGetAPIKey $NUPKG_DIR
   on:
     branch: master
   
