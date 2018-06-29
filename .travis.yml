@@ -29,7 +29,7 @@ script:
 deploy:
   skip_cleanup: true
   provider: script
-  script: bash deploy/deploy.sh $NuGetAPIKey $NUPKG_DIR
+  script: bash deploy/deploy.sh null $NUPKG_DIR
   on:
     branch: master
   
