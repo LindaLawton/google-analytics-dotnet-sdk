@@ -11,7 +11,7 @@ mkdir -p NuPkg
 # Final output directory of NuPkgs.
 NUPKG_DIR="$(pwd)/NuPkg"
 # Final output directory of NuPkgs.
-NUSPEC_PATH="$(pwd)/deploy/nuspec"
+NUSPEC_PATH="$(pwd)/deploy/nuspec.xml"
 # Build configuration to build/pack.
 BUILD_CONFIGURATION=Release
 
