@@ -21,6 +21,7 @@ Supported Platforms:
     <PackageProjectUrl>https://github.com/LindaLawton/google-analytics-dotnet-sdk</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LindaLawton/google-analytics-dotnet-sdk</RepositoryUrl>
     <PackageTags>Google analytics tracker measurement protocol</PackageTags>
+    <PackageReleaseNotes>Adds cusotm dimension support</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

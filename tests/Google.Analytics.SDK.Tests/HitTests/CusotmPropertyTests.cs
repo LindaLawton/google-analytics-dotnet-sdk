@@ -3,6 +3,8 @@ using Google.Analytics.SDK.Core.Hits;
 using Google.Analytics.SDK.Core.Hits.WebHits;
 using System;
 using System.Linq;
+using Google.Analytics.SDK.Core;
+using Google.Analytics.SDK.Core.Services.Interfaces;
 using Xunit;
 
 namespace Google.Analytics.SDK.Tests.HitTests
@@ -17,10 +19,30 @@ namespace Google.Analytics.SDK.Tests.HitTests
         private const int MetricNumber = 1;
         private const long MetricValue = 123;
 
+        private const string WebPropertyId = "UA-1111-1";
+
         public HitBase MockHit()
         {
             return new PageViewHit(DocumentLocationUrl);
         }
+
+        public GaTracker MockTracker()
+        {
+            return  TrackerBuilder.BuildWebTracker(WebPropertyId);
+            
+        }
+
+        [Fact]
+        public void CreateHitRequest_with_customDimension()
+        {
+            var tracker = MockTracker();
+            var hit = MockHit();
+            hit.AddCustomDimension(DimensionNumber, DimensionValue);
+            var request = (Hitrequest)tracker.CreateHitRequest(hit);
+
+            int i = 1;
+        }
+
 
         [Fact]
         public void Hit_Add_CustomDimension()

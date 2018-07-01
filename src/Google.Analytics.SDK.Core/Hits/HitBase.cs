@@ -572,9 +572,22 @@ namespace Google.Analytics.SDK.Core.Hits
                     var name = property.Name;
                     var value = property.GetValue(this);
 
-                    if (value == null) continue;
-                    sb.Append(this.BuildPropertyString(name));
-                    sb.Append("&");
+                    if (property.PropertyType == typeof(IList<CustomDimenison>))
+                    {
+                        // TODO guild list diffrently
+
+                        foreach (var custom in value)   // This doesnt work
+                        {
+                           
+                        }
+
+                    }
+                    else
+                    {
+                        if (value == null) continue;
+                        sb.Append(this.BuildPropertyString(name));
+                        sb.Append("&");
+                    }
                 }
 
                 return sb.ToString().Substring(0, sb.Length - 1);

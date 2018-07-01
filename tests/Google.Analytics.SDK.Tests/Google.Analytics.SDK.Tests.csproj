@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <Version>1.0.1</Version>
+
+    <Authors>Linda Lawton</Authors>
   </PropertyGroup>
 
   <ItemGroup>
