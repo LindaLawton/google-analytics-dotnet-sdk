@@ -6,8 +6,8 @@ dist: trusty
 # Add build var for release.
 env:
   BUILD_CONFIGURATION=Release
-  NUPKG_DIR=$(pwd)/NuPkgs/Generated
-  DEPLOY_DIR=$(pwd)/deploy
+  NUPKG_DIR="$(pwd)/NuPkg"
+  DEPLOY_DIR="$(pwd)/deploy"
 
 # Install the .NET Core 2.0 runtime as that's what we build and test against
 addons:
@@ -20,14 +20,8 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.1.5
 
 script:
-  #- dotnet build -c $BUILD_CONFIGURATION src/Google.Analytics.SDK.Core
-  #- dotnet build -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests
-  #- dotnet test -c $BUILD_CONFIGURATION tests/Google.Analytics.SDK.Tests 
-  #- dotnet pack src/Google.Analytics.SDK.Core --configuration $BUILD_CONFIGURATION --no-restore --no-build --output $NUPKG_DIR /p:NuspecFile=deploy/.nuspec
-  - ./BuildSupport.sh
- # - ls -la $DEPLOY_DIR
- # - pwd
- # - echo $DEPLOY_DIR
+  - mkdir -p NuPkg    
+  - ./BuildSupport.sh $NUPKG_DIR $DEPLOY_DIR
 #deploy:
   #skip_cleanup: true
   #provider: script
