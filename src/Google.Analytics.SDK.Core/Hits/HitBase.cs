@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Google.Analytics.SDK.Core.Helper;
 using Google.Analytics.SDK.Core.Services.Interfaces;
@@ -10,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Google.Analytics.SDK.Core.Hits
 {
-    public abstract class HitBase: IHit
+    public abstract class HitBase : IHit
     {
         #region  General
         /// <summary>
@@ -500,6 +501,39 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
+        #region Custom Dimensions / Metrics
+
+        /// <summary>
+        /// Each custom dimension has an associated index. There is a maximum of 20 custom dimensions (200 for Analytics 360 accounts). The dimension index must be a positive integer between 1 and 200, inclusive.
+        /// </summary>
+        [Hit(Parm = "cd", Required = true)]
+        public IList<CustomDimenison> CustomDimension { get; set; }
+
+        /// <summary>
+        /// Each custom metric has an associated index. There is a maximum of 20 custom metrics (200 for Analytics 360 accounts). The metric index must be a positive integer between 1 and 200, inclusive.
+        /// </summary>
+        [Hit(Parm = "cm", Required = true)]
+        public List<CustomMetric> CustomMetric { get; set; }
+
+        public void AddCustomDimension(int id, string value)
+        {
+            if (CustomDimension == null) CustomDimension = new List<CustomDimenison>();
+
+            if (CustomDimension.FirstOrDefault(d => id.Equals(d.Number)) != null) throw new ArgumentOutOfRangeException(nameof(id), "${id} already exists");
+
+            CustomDimension.Add(new CustomDimenison(id, value));
+        }
+
+        public void AddCustomMetric(int id, long value)
+        {
+            if (CustomMetric == null) CustomMetric = new List<CustomMetric>();
+
+            if (CustomMetric.FirstOrDefault(d => id.Equals(d.Number)) != null)
+                throw new ArgumentOutOfRangeException(nameof(id), "${id} already exists");
+            CustomMetric.Add(new CustomMetric(id, value));
+        }
+
+        #endregion
 
         public bool IsValid { get; set; }
 
@@ -510,7 +544,7 @@ namespace Google.Analytics.SDK.Core.Hits
             //always
             if (string.IsNullOrWhiteSpace(ClientId) || string.IsNullOrWhiteSpace(ProtocolVersion) || string.IsNullOrWhiteSpace(HitType))
             {
-                Console.WriteLine($"Required paramater missing. clientId={ClientId}, ProtocolVersion={ProtocolVersion}, HitType={HitType}" );  
+                Console.WriteLine($"Required paramater missing. clientId={ClientId}, ProtocolVersion={ProtocolVersion}, HitType={HitType}");
                 IsValid = false;
                 return IsValid;
             }
@@ -551,6 +585,35 @@ namespace Google.Analytics.SDK.Core.Hits
                 throw;
             }
         }
+
+    }
+
+    public class CustomDimenison : CustomParmBase
+    {
+        public CustomDimenison(int number, string value) : base(number)
+        {
+            Value = value;
+        }
+
+        public string Value { get; set; }
+    }
+    public class CustomMetric : CustomParmBase
+    {
+        public long Value { get; set; }
+        public CustomMetric(int number, long value) : base(number)
+        {
+            Value = value;
+        }
+    }
+
+    public class CustomParmBase
+    {
+        public CustomParmBase(int number)
+        {
+            Number = number;
+        }
+
+        public int Number { get; set; }
 
     }
 }

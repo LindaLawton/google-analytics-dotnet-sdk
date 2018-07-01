@@ -6,5 +6,9 @@ namespace Google.Analytics.SDK.Core.Hits
     public interface IHit
     {
         bool Validate();
+
+        void AddCustomDimension(int id, string value);
+
+        void AddCustomMetric(int id, long value);
     }
 }
