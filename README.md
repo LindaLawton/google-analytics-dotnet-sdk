@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/LindaLawton/google-analytics-dotnet-sdk.svg?branch=master, "Build Status")](https://travis-ci.org/LindaLawton/google-analytics-dotnet-sdk)
 
+![NuGet](https://img.shields.io/nuget/dt/Daimto.Google.Analytics.Tracker.SDK.svg)
+
 # Google Analytics SDK for .Net 
 The Google Analytics SDK is designed makes it easy to connect .net Applications to Google Analytics.  
 
