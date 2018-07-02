@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Analytics.SDK.Core;
+using Google.Analytics.SDK.Core.Extensions;
 using Google.Analytics.SDK.Core.Hits.WebHits;
 using Google.Analytics.SDK.Core.Services.Interfaces;
 

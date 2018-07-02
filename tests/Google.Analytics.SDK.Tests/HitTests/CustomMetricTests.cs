@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Google.Analytics.SDK.Core;
+using Google.Analytics.SDK.Core.Extensions;
 using Google.Analytics.SDK.Core.Helper;
 using Google.Analytics.SDK.Core.Hits;
 using Google.Analytics.SDK.Core.Hits.WebHits;

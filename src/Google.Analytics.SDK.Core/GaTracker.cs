@@ -5,30 +5,10 @@ using Google.Analytics.SDK.Core.Services.Interfaces;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using Google.Analytics.SDK.Core.Hits;
 using Microsoft.Extensions.Logging;
 
 namespace Google.Analytics.SDK.Core
 {
-    public class NoLogging : ILogger {
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
-        {
-          
-        }
-
-        public bool IsEnabled(LogLevel logLevel)
-        {
-            return true;
-        }
-
-        public IDisposable BeginScope<TState>(TState state)
-        {
-            return null;
-        }
-    }
-
-   
-
     public class GaTracker : ITracker
     {
         
@@ -62,21 +42,4 @@ namespace Google.Analytics.SDK.Core
             throw new NotImplementedException();
         }
     }
-
-    public static class TrackerExtensions{
-        
-        public static IRequest CreateHitRequest(this ITracker tracker, HitBase hit)
-        {
-            hit.ClientId = tracker.ClientId;
-            hit.WebPropertyId = tracker.TrackingId;
-            hit.ApplicationId = tracker.ApplicationId;
-            hit.ApplicationName = tracker.ApplicationName;
-            hit.ApplicationVersion = tracker.ApplicationVersion;
-            var request = new HitRequestBase(hit);
-            
-
-            return request;
-        }
-    }
-
 }

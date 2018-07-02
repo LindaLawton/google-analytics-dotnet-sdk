@@ -4,6 +4,7 @@ using Google.Analytics.SDK.Core.Hits.WebHits;
 using Google.Analytics.SDK.Core.Services.Interfaces;
 using System;
 using System.Linq;
+using Google.Analytics.SDK.Core.Extensions;
 using Xunit;
 
 namespace Google.Analytics.SDK.Tests.HitTests
