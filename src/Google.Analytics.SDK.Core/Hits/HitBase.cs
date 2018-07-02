@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Linda Lawton. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using Google.Analytics.SDK.Core.Helper;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Google.Analytics.SDK.Core.Helper;
-using Google.Analytics.SDK.Core.Services.Interfaces;
-using Newtonsoft.Json;
+using Google.Analytics.SDK.Core.Extensions;
+using Google.Analytics.SDK.Core.Hits.CustomProperties;
 
 namespace Google.Analytics.SDK.Core.Hits
 {
@@ -400,7 +401,6 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
-
         #region Social Interactions
 
         /// <summary>
@@ -513,7 +513,7 @@ namespace Google.Analytics.SDK.Core.Hits
         /// Each custom metric has an associated index. There is a maximum of 20 custom metrics (200 for Analytics 360 accounts). The metric index must be a positive integer between 1 and 200, inclusive.
         /// </summary>
         [Hit(Parm = "cm", Required = true)]
-        public List<CustomMetric> CustomMetric { get; set; }
+        public IList<CustomMetric> CustomMetric { get; set; }
 
         public void AddCustomDimension(int id, string value)
         {
@@ -535,20 +535,26 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
+        
         public bool IsValid { get; set; }
+
+        public ILogger Logger { get; set; }  = new NoLogging();
+
+        public void EnableLogging(ILogger logger)
+        {
+            Logger = logger;
+        }
 
         public bool Validate()
         {
             IsValid = false;
-
-            //always
+            
             if (string.IsNullOrWhiteSpace(ClientId) || string.IsNullOrWhiteSpace(ProtocolVersion) || string.IsNullOrWhiteSpace(HitType))
             {
                 Console.WriteLine($"Required paramater missing. clientId={ClientId}, ProtocolVersion={ProtocolVersion}, HitType={HitType}");
                 IsValid = false;
                 return IsValid;
             }
-
 
             IsValid = InternalValidate();
             return IsValid;
@@ -559,7 +565,6 @@ namespace Google.Analytics.SDK.Core.Hits
             return true;
         }
 
-
         public string GetRequest()
         {
             var sb = new StringBuilder();
@@ -569,64 +574,52 @@ namespace Google.Analytics.SDK.Core.Hits
                 var properties = typeof(HitBase).GetProperties();
                 foreach (var property in properties)
                 {
+                    if (!property.IsParseableDatatype())
+                    {
+                        Logger.LogInformation($"{property.PropertyType} is not a parseable type skipping.");
+                        continue;
+                    }
+
                     var name = property.Name;
                     var value = property.GetValue(this);
+                    if (value == null) continue;
 
                     if (property.PropertyType == typeof(IList<CustomDimenison>))
                     {
-                        // TODO guild list diffrently
-
-                        foreach (var custom in value)   // This doesnt work
+                        foreach (var custom in (List<CustomDimenison>)value)
                         {
-                           
+                            sb.Append($"cd{custom.Number}={custom.Value}");
+                            sb.Append("&");
                         }
+                        continue;
+                    }
 
-                    }
-                    else
+                    if (property.PropertyType == typeof(IList<CustomMetric>))
                     {
-                        if (value == null) continue;
-                        sb.Append(this.BuildPropertyString(name));
-                        sb.Append("&");
+                        foreach (var custom in (List<CustomMetric>)value)
+                        {
+                            sb.Append($"cm{custom.Number}={custom.Value}");
+                            sb.Append("&");
+                        }
+                        continue;
                     }
+
+                    var defalutString = this.BuildPropertyString(name);
+                    if (string.IsNullOrWhiteSpace(defalutString)) continue;
+
+                    sb.Append(defalutString);
+                    sb.Append("&");
+
                 }
 
                 return sb.ToString().Substring(0, sb.Length - 1);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"GetRequest failed {e}");
+                Logger.LogError($"Generate request failed. {e.Message}",e.Message, e);
                 throw;
             }
         }
-
-    }
-
-    public class CustomDimenison : CustomParmBase
-    {
-        public CustomDimenison(int number, string value) : base(number)
-        {
-            Value = value;
-        }
-
-        public string Value { get; set; }
-    }
-    public class CustomMetric : CustomParmBase
-    {
-        public long Value { get; set; }
-        public CustomMetric(int number, long value) : base(number)
-        {
-            Value = value;
-        }
-    }
-
-    public class CustomParmBase
-    {
-        public CustomParmBase(int number)
-        {
-            Number = number;
-        }
-
-        public int Number { get; set; }
 
     }
 }

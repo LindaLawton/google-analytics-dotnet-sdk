@@ -10,6 +10,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         private const string ExecptionDescription = "brain fart";
         private const bool ExecptionIsFatal = false;
         private const string HitType = HitTypes.Exception;
+        private const string ExceptionIsFatal = "0";
 
         [Fact]
         public void Create_ExceptionHit_All_Validate_Success()
@@ -23,7 +24,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
         {
             var hit = new ExceptionHit(ExecptionDescription, ExecptionIsFatal);
             Assert.Equal(ExecptionDescription, hit.ExceptionDescription);
-            Assert.Equal(hit.ExceptionIsFatal, "0");
+            Assert.Equal(hit.ExceptionIsFatal, ExceptionIsFatal);
             Assert.Equal(HitType, hit.HitType, true);
         }
 
