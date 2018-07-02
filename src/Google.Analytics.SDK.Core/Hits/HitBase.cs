@@ -1,16 +1,18 @@
 ﻿// Copyright (c) Linda Lawton. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using Google.Analytics.SDK.Core.Helper;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Google.Analytics.SDK.Core.Helper;
-using Google.Analytics.SDK.Core.Services.Interfaces;
-using Newtonsoft.Json;
+using Google.Analytics.SDK.Core.Extensions;
+using Google.Analytics.SDK.Core.Hits.CustomProperties;
 
 namespace Google.Analytics.SDK.Core.Hits
 {
-    public abstract class HitBase: IHit
+    public abstract class HitBase : IHit
     {
         #region  General
         /// <summary>
@@ -399,7 +401,6 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
-
         #region Social Interactions
 
         /// <summary>
@@ -500,21 +501,60 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
+        #region Custom Dimensions / Metrics
 
+        /// <summary>
+        /// Each custom dimension has an associated index. There is a maximum of 20 custom dimensions (200 for Analytics 360 accounts). The dimension index must be a positive integer between 1 and 200, inclusive.
+        /// </summary>
+        [Hit(Parm = "cd", Required = true)]
+        public IList<CustomDimenison> CustomDimension { get; set; }
+
+        /// <summary>
+        /// Each custom metric has an associated index. There is a maximum of 20 custom metrics (200 for Analytics 360 accounts). The metric index must be a positive integer between 1 and 200, inclusive.
+        /// </summary>
+        [Hit(Parm = "cm", Required = true)]
+        public IList<CustomMetric> CustomMetric { get; set; }
+
+        public void AddCustomDimension(int id, string value)
+        {
+            if (CustomDimension == null) CustomDimension = new List<CustomDimenison>();
+
+            if (CustomDimension.FirstOrDefault(d => id.Equals(d.Number)) != null) throw new ArgumentOutOfRangeException(nameof(id), "${id} already exists");
+
+            CustomDimension.Add(new CustomDimenison(id, value));
+        }
+
+        public void AddCustomMetric(int id, long value)
+        {
+            if (CustomMetric == null) CustomMetric = new List<CustomMetric>();
+
+            if (CustomMetric.FirstOrDefault(d => id.Equals(d.Number)) != null)
+                throw new ArgumentOutOfRangeException(nameof(id), "${id} already exists");
+            CustomMetric.Add(new CustomMetric(id, value));
+        }
+
+        #endregion
+
+        
         public bool IsValid { get; set; }
+
+        public ILogger Logger { get; set; }  = new NoLogging();
+
+        public void EnableLogging(ILogger logger)
+        {
+            Logger = logger;
+        }
 
         public bool Validate()
         {
             IsValid = false;
-
-            //always
+            
             if (string.IsNullOrWhiteSpace(ClientId) || string.IsNullOrWhiteSpace(ProtocolVersion) || string.IsNullOrWhiteSpace(HitType))
             {
-                Console.WriteLine($"Required paramater missing. clientId={ClientId}, ProtocolVersion={ProtocolVersion}, HitType={HitType}" );  
+                Console.WriteLine($"Required paramater missing. clientId={ClientId}, ProtocolVersion={ProtocolVersion}, HitType={HitType}");
                 IsValid = false;
                 return IsValid;
             }
-
 
             IsValid = InternalValidate();
             return IsValid;
@@ -525,7 +565,6 @@ namespace Google.Analytics.SDK.Core.Hits
             return true;
         }
 
-
         public string GetRequest()
         {
             var sb = new StringBuilder();
@@ -535,19 +574,49 @@ namespace Google.Analytics.SDK.Core.Hits
                 var properties = typeof(HitBase).GetProperties();
                 foreach (var property in properties)
                 {
+                    if (!property.IsParseableDatatype())
+                    {
+                        Logger.LogInformation($"{property.PropertyType} is not a parseable type skipping.");
+                        continue;
+                    }
+
                     var name = property.Name;
                     var value = property.GetValue(this);
-
                     if (value == null) continue;
-                    sb.Append(this.BuildPropertyString(name));
+
+                    if (property.PropertyType == typeof(IList<CustomDimenison>))
+                    {
+                        foreach (var custom in (List<CustomDimenison>)value)
+                        {
+                            sb.Append($"cd{custom.Number}={custom.Value}");
+                            sb.Append("&");
+                        }
+                        continue;
+                    }
+
+                    if (property.PropertyType == typeof(IList<CustomMetric>))
+                    {
+                        foreach (var custom in (List<CustomMetric>)value)
+                        {
+                            sb.Append($"cm{custom.Number}={custom.Value}");
+                            sb.Append("&");
+                        }
+                        continue;
+                    }
+
+                    var defalutString = this.BuildPropertyString(name);
+                    if (string.IsNullOrWhiteSpace(defalutString)) continue;
+
+                    sb.Append(defalutString);
                     sb.Append("&");
+
                 }
 
                 return sb.ToString().Substring(0, sb.Length - 1);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"GetRequest failed {e}");
+                Logger.LogError($"Generate request failed. {e.Message}",e.Message, e);
                 throw;
             }
         }

@@ -1,9 +1,13 @@
+using System.Runtime.CompilerServices;
 using Google.Analytics.SDK.Core.Helper;
 using Google.Analytics.SDK.Core.Hits.WebHits;
 using Xunit;
 
+[assembly: InternalsVisibleTo("Google.Analytics.SDK.Tests")]
 namespace Google.Analytics.SDK.Tests.HitTests
 {
+
+
     public class PageTests
     {
         private const string DocumentLocationUrl = "https://plus.google.com/u/0/+LindaLawton/posts/7oxAdszKB9C";

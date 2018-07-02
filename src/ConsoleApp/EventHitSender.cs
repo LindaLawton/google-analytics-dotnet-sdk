@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Analytics.SDK.Core;
+using Google.Analytics.SDK.Core.Extensions;
 using Google.Analytics.SDK.Core.Hits;
 using Google.Analytics.SDK.Core.Services.Interfaces;
 
@@ -32,7 +33,7 @@ namespace ConsoleApp
                 FlashVersion = "10 1 r103"
             };
 
-            var request = (Hitrequest)tracker.CreateHitRequest(hit);
+            var request = (HitRequestBase)tracker.CreateHitRequest(hit);
 
             var debugResponse = Task.Run(() => request.ExecuteDebugAsync());
             debugResponse.Wait();
