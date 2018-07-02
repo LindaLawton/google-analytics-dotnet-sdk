@@ -64,7 +64,7 @@ namespace Google.Analytics.SDK.Core
     }
 
     public static class TrackerExtensions{
-
+        
         public static IRequest CreateHitRequest(this ITracker tracker, HitBase hit)
         {
             hit.ClientId = tracker.ClientId;
@@ -72,7 +72,7 @@ namespace Google.Analytics.SDK.Core
             hit.ApplicationId = tracker.ApplicationId;
             hit.ApplicationName = tracker.ApplicationName;
             hit.ApplicationVersion = tracker.ApplicationVersion;
-            var request = new Hitrequest(hit);
+            var request = new HitRequestBase(hit);
             
 
             return request;

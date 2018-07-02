@@ -39,7 +39,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
             var tracker = MockTracker();
             var hit = MockHit();
             hit.AddCustomMetric(CustomPropertyNumber, CustomPropertyValue);
-            var request = (Hitrequest)tracker.CreateHitRequest(hit);
+            var request = (HitRequestBase)tracker.CreateHitRequest(hit);
             Assert.Contains(MockCustomProperty(), request.Parms, StringComparison.OrdinalIgnoreCase);
         }
 

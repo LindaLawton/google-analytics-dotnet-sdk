@@ -32,7 +32,7 @@ namespace ConsoleApp
                 FlashVersion = "10 1 r103"
             };
 
-            var request = (Hitrequest)tracker.CreateHitRequest(hit);
+            var request = (HitRequestBase)tracker.CreateHitRequest(hit);
 
             var debugResponse = Task.Run(() => request.ExecuteDebugAsync());
             debugResponse.Wait();
