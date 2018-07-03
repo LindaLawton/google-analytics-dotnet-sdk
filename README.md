@@ -1,3 +1,5 @@
+![alt text](https://github.com/LindaLawton/google-analytics-dotnet-sdk/blob/master/images/analyticsicon.png "Google analytics .Net Tracker")
+
 [![Build Status](https://travis-ci.org/LindaLawton/google-analytics-dotnet-sdk.svg?branch=master, "Build Status")](https://travis-ci.org/LindaLawton/google-analytics-dotnet-sdk)
 
 ![NuGet](https://img.shields.io/nuget/dt/Daimto.Google.Analytics.Tracker.SDK.svg)
