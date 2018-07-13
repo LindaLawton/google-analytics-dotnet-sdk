@@ -35,9 +35,15 @@ The Google Analytics SDK supports tracking for the following interaction ([Hit](
 	
 Additional samples can be found in the Quick start project - [Tutorials](https://github.com/LindaLawton/google-analytics-dotnet-sdk/tree/master/tutorials)	
 	
+## Batching
 
+I have not added support for [batching](https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide#batch) yet.  If your interested in it please let me know.
+	
+	
 ## About this SDK
 This Google Analytics SDK is not an offical Google SDK It was created by me to help the Google Analytics community as there is no active development on any other SDKs currently.   I intend to support .Net Standard, .net core, and .net classic application types to begin with.   I hope to support Xamarin and Universal windows Applications soon.   
+
+
 
 
 ### Contributing 
