@@ -33,6 +33,9 @@ The Google Analytics SDK supports tracking for the following interaction ([Hit](
     var collectRequest = Task.Run(() => request.ExecuteCollectAsync());
     collectRequest.Wait();
     Console.Write(collectRequest.Result.RawResponse);
+	
+Additional samples can be found in the Quick start project - [Tutorials](https://github.com/LindaLawton/google-analytics-dotnet-sdk/tree/master/tutorials)	
+	
 
 ## About this SDK
 This Google Analytics SDK is not an offical Google SDK It was created by me to help the Google Analytics community as there is no active development on any other SDKs currently.   I intend to support .Net Standard, .net core, and .net classic application types to begin with.   I hope to support Xamarin and Universal windows Applications soon.   
