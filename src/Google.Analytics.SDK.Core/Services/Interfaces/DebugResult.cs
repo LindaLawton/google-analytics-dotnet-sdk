@@ -3,6 +3,7 @@
 
 
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Google.Analytics.SDK.Core.Services.Interfaces
@@ -16,6 +17,11 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
         {
             RawResponse = result;
             Response = JsonConvert.DeserializeObject<DebugResponse>(result);
+        }
+
+        public bool IsValid()
+        {
+            return Response?.hitParsingResult?.FirstOrDefault() != null && Response.hitParsingResult.FirstOrDefault().valid;
         }
     }
 
