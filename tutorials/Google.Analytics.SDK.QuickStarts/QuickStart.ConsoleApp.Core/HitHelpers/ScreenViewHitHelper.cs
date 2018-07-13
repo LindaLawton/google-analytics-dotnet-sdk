@@ -1,12 +1,10 @@
 ﻿using Google.Analytics.SDK.Core.Extensions;
-using Google.Analytics.SDK.Core.Hits.WebHits;
+using Google.Analytics.SDK.Core.Hits.MobileHits;
 using Google.Analytics.SDK.Core.Services.Interfaces;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Google.Analytics.SDK.Core.Hits.MobileHits;
 
-namespace QuickStart.ConsoleApp.Core
+namespace QuickStart.ConsoleApp.Core.HitHelpers
 {
     class ScreenViewHitHelper
     {
@@ -15,21 +13,18 @@ namespace QuickStart.ConsoleApp.Core
         {
             var hit = new ScreenViewHit(screenName)
             {
-                
                 DataSource = "app",
+                UserAgentOverride = @"Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19"
             };
 
+            // create the hit request.
             var request = (HitRequestBase)tracker.CreateHitRequest(hit);
 
+            // Run a debug check to ensure its valid.
             var debugResponse = await request.ExecuteDebugAsync();
-            Console.Write(debugResponse.RawResponse);
-
-            var response = (DebugResult)debugResponse;
-
-            if (!response.Response.hitParsingResult.FirstOrDefault().valid) return false;
-
-            Console.Write(response.Response.hitParsingResult.FirstOrDefault().valid);
-
+            if (!((DebugResult)debugResponse).IsValid()) return false;
+            
+            // Send hit.
             var collectRequest = await request.ExecuteCollectAsync();
             Console.Write(collectRequest.RawResponse);
 

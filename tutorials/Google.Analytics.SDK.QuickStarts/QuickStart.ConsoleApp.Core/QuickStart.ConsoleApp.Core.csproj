@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Daimto.Google.Analytics.Tracker.SDK" Version="1.0.2-beta" />
+    <PackageReference Include="Daimto.Google.Analytics.Tracker.SDK" Version="1.0.4-beta" />
   </ItemGroup>
 
 </Project>
