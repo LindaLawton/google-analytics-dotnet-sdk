@@ -41,7 +41,7 @@ namespace Google.Analytics.SDK.Tests.HitTests
             var hit = MockHit();
             hit.AddCustomDimension(CustomPropertyNumber, CustomPropertyValue);
             var request = (HitRequestBase)tracker.CreateHitRequest(hit);
-            Assert.Contains(MockCustomProperty(), request.Parms, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(MockCustomProperty(), request.QueryString, StringComparison.OrdinalIgnoreCase);
         }
 
         [Fact]

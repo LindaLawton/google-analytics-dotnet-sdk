@@ -14,20 +14,22 @@ namespace ConsoleApp
 {
     class Program
     {
+        private const string DemoDataApplicationWebProplerty = "UA-53766825-1";
+        private const string DemoDataWebApplicationWebProplerty = "UA-53766825-2";
+
+
         static void Main(string[] args)
         {
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
-            var tracker = TrackerBuilder.BuildWebTracker("UA-59183475-1");
+            var tracker = TrackerBuilder.BuildWebTracker(DemoDataWebApplicationWebProplerty);
             PageViewHItSender.Send(tracker);
             EventHitSender.Send(tracker);
 
-            var trackerMobile = TrackerBuilder.BuildMobileTracker("UA-59183475-3");
+            var trackerMobile = TrackerBuilder.BuildMobileTracker(DemoDataApplicationWebProplerty);
             ScreenViewHitSender.Send(trackerMobile);
             EventHitSender.Send(trackerMobile);
-
-            //https://www.blinkingcaret.com/2018/02/14/net-core-console-logging/
 
             Console.WriteLine("Hello World!");
         }

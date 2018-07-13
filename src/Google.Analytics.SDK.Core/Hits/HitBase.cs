@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Linda Lawton. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using Google.Analytics.SDK.Core.Extensions;
 using Google.Analytics.SDK.Core.Helper;
+using Google.Analytics.SDK.Core.Hits.CustomProperties;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Google.Analytics.SDK.Core.Extensions;
-using Google.Analytics.SDK.Core.Hits.CustomProperties;
 
 namespace Google.Analytics.SDK.Core.Hits
 {
@@ -31,8 +30,8 @@ namespace Google.Analytics.SDK.Core.Hits
         /// When present, the IP address of the sender will be anonymized. For example, the IP will be anonymized if 
         /// any of the following parameters are present in the payload: &aip=, &aip=0, or &aip=1
         /// </summary>
-        [Hit(Parm = "tid", Required = false)]
-        public bool AnonymizeIp { get; set; }
+        [Hit(Parm = "aip", Required = false)]
+        public string AnonymizeIp { get; set; }
 
         /// <summary>
         /// When present, the IP address of the sender will be anonymized. For example, the IP will be anonymized if any 
@@ -602,9 +601,11 @@ namespace Google.Analytics.SDK.Core.Hits
             return true;
         }
 
-        public string GetRequest()
+        public Dictionary<string, string> GetRequestParamaters()
         {
-            var sb = new StringBuilder();
+         
+            var parms = new Dictionary<string,string>();
+
             try
             {
 
@@ -625,8 +626,7 @@ namespace Google.Analytics.SDK.Core.Hits
                     {
                         foreach (var custom in (List<CustomDimenison>)value)
                         {
-                            sb.Append($"cd{custom.Number}={custom.Value}");
-                            sb.Append("&");
+                            parms.Add($"cd{custom.Number}",custom.Value);
                         }
                         continue;
                     }
@@ -635,21 +635,20 @@ namespace Google.Analytics.SDK.Core.Hits
                     {
                         foreach (var custom in (List<CustomMetric>)value)
                         {
-                            sb.Append($"cm{custom.Number}={custom.Value}");
-                            sb.Append("&");
+                            parms.Add($"cm{custom.Number}", custom.Value.ToString());
                         }
                         continue;
                     }
 
                     var defalutString = this.BuildPropertyString(name);
+                    var defaultKeyPair = this.GetPropertyString(name);
+                    if (defaultKeyPair.Key != null )
+                        parms.Add(defaultKeyPair.Key, defaultKeyPair.Value);
+
                     if (string.IsNullOrWhiteSpace(defalutString)) continue;
-
-                    sb.Append(defalutString);
-                    sb.Append("&");
-
                 }
 
-                return sb.ToString().Substring(0, sb.Length - 1);
+                return parms;
             }
             catch (Exception e)
             {
