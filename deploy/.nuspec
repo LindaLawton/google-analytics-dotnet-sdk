@@ -1,7 +1,6 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
-    <metadata>
-	   
+    <metadata>	   
 	
         <!-- The identifier that must be unique within the hosting gallery -->
         <id>Daimto.Google.Analytics.Tracker.SDK</id>
@@ -21,7 +20,7 @@ Supported Platforms:
 </summary>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.0.0-beta</version>
+        <version>1.0.2-beta</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Linda Lawton</authors>
@@ -46,7 +45,7 @@ Supported Platforms:
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
         <!-- Any details about this particular release -->
-        <releaseNotes>First version</releaseNotes>
+        <releaseNotes>Adds some missing dimensions and metrics</releaseNotes>
 
         <!-- 
             The description can be used in package manager UI. Note that the
@@ -62,7 +61,8 @@ Supported Platforms:
 
         <!-- Dependencies are automatically installed when the package is installed -->
         <dependencies>
-            <dependency id="Newtonsoft.Json" version="9.0" />
+            <dependency id="Newtonsoft.Json" version="11.0" />
+			<dependency id="Microsoft.Extensions.Logging" version="2.1" />
         </dependencies>
     </metadata>
     

@@ -16,7 +16,8 @@ namespace Google.Analytics.SDK.Core.Hits
     {
         #region  General
         /// <summary>
-        /// The Protocol version. The current value is '1'. This will only change when there are changes made that are not backwards compatible.
+        /// The Protocol version. The current value is '1'. This will only change when there are changes made that are not 
+        /// backwards compatible.
         /// </summary>
         [Hit(Parm = "v", Required = true)]
         public string ProtocolVersion => "1";
@@ -27,29 +28,36 @@ namespace Google.Analytics.SDK.Core.Hits
         public string WebPropertyId { get; set; }
 
         /// <summary>
-        /// When present, the IP address of the sender will be anonymized. For example, the IP will be anonymized if any of the following parameters are present in the payload: &aip=, &aip=0, or &aip=1
+        /// When present, the IP address of the sender will be anonymized. For example, the IP will be anonymized if 
+        /// any of the following parameters are present in the payload: &aip=, &aip=0, or &aip=1
         /// </summary>
         [Hit(Parm = "tid", Required = false)]
-        public string AnonymizeIp { get; set; }
+        public bool AnonymizeIp { get; set; }
 
         /// <summary>
-        /// When present, the IP address of the sender will be anonymized. For example, the IP will be anonymized if any of the following parameters are present in the payload: &aip=, &aip=0, or &aip=1
+        /// When present, the IP address of the sender will be anonymized. For example, the IP will be anonymized if any 
+        /// of the following parameters are present in the payload: &aip=, &aip=0, or &aip=1
         /// </summary>
         [Hit(Parm = "ds", Required = false)]
         public string DataSource { get; set; } = "app";
 
 
         /// <summary>
-        /// Used to collect offline / latent hits. The value represents the time delta (in milliseconds) between when the hit being reported occurred and the time the hit was sent. The value must be greater than or equal to 0. Values greater than four hours may lead to hits not being processed.
+        /// Used to collect offline / latent hits. The value represents the time delta (in milliseconds) between when 
+        /// the hit being reported occurred and the time the hit was sent. The value must be greater than or equal to 0. 
+        /// Values greater than four hours may lead to hits not being processed.
         /// </summary>
         [Hit(Parm = "qt", Required = false)]
         public int QueueTime { get; set; }
 
         /// <summary>
-        /// Used to send a random number in GET requests to ensure browsers and proxies don't cache hits. It should be sent as the final parameter of the request since we've seen some 3rd party internet filtering software add additional parameters to HTTP requests incorrectly. This value is not used in reporting.
+        /// Used to send a random number in GET requests to ensure browsers and proxies don't cache hits. 
+        /// It should be sent as the final parameter of the request since we've seen some 3rd party internet 
+        /// filtering software add additional parameters to HTTP requests incorrectly. 
+        /// This value is not used in reporting.
         /// </summary>
         [Hit(Parm = "z", Required = false)]
-        public string CacheBuster { get; set; }
+        public string CacheBuster { get; set; }  //TODO ensure that building request adds this last.
 
         #endregion
 
@@ -71,25 +79,31 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #region session
         /// <summary>
-        /// Used to control the session duration. A value of 'start' forces a new session to start with this hit and 'end' forces the current session to end with this hit. All other values are ignored.
+        /// Used to control the session duration. A value of 'start' forces a new session to start with this hit and 'end' 
+        /// forces the current session to end with this hit. All other values are ignored.
         /// </summary>
         [Hit(Parm = "sc", Required = true)]
         public string SessionControl { get; set; }
 
         /// <summary>
-        /// The IP address of the user. This should be a valid IP address in IPv4 or IPv6 format. It will always be anonymized just as though &aip (anonymize IP) had been used.
+        /// The IP address of the user. This should be a valid IP address in IPv4 or IPv6 format. It will always be anonymized
+        ///  just as though &aip (anonymize IP) had been used.
         /// </summary>
         [Hit(Parm = "uip", Required = true)]
         public string IpOverride { get; set; }
 
         /// <summary>
-        /// The User Agent of the browser. Note that Google has libraries to identify real user agents. Hand crafting your own agent could break at any time.
+        /// The User Agent of the browser. Note that Google has libraries to identify real user agents. Hand crafting your
+        ///  own agent could break at any time.
         /// </summary>
         [Hit(Parm = "ua", Required = true)]
         public string UserAgentOverride { get; set; }
 
         /// <summary>
-        /// The geographical location of the user. The geographical ID should be a two letter country code or a criteria ID representing a city or region (see http://developers.google.com/analytics/devguides/collection/protocol/v1/geoid). This parameter takes precedent over any location derived from IP address, including the IP Override parameter. An invalid code will result in geographical dimensions to be set to '(not set)'.
+        /// The geographical location of the user. The geographical ID should be a two letter country code or a criteria ID 
+        /// representing a city or region (see http://developers.google.com/analytics/devguides/collection/protocol/v1/geoid).
+        ///  This parameter takes precedent over any location derived from IP address, including the IP Override parameter.
+        ///  An invalid code will result in geographical dimensions to be set to '(not set)'.
         /// </summary>
         [Hit(Parm = "geoid", Required = true)]
         public string GeographicalOverride { get; set; }
@@ -176,7 +190,6 @@ namespace Google.Analytics.SDK.Core.Hits
         [Hit(Parm = "sd", Required = false)]
         public string ScreenColors { get; set; }
 
-
         /// <summary>
         ///Specifies the language.
         /// </summary>
@@ -249,7 +262,7 @@ namespace Google.Analytics.SDK.Core.Hits
         /// You can have up to 5 content groupings, each of which has an associated index between 1 and 5, inclusive. Each content grouping can have up to 100 content groups. The value of a content group is hierarchical text delimited by '/". All leading and trailing slashes will be removed and any repeated slashes will be reduced to a single slash. For example, '/a//b/' will be converted to 'a/b'.
         /// </summary>
         [Hit(Parm = "cg<groupIndex>", Required = false)]
-        public Dictionary<int, string> ContentGroup { get; set; }
+        public Dictionary<int, string> ContentGroup { get; set; }  // TODO support like custom dimensions.
 
         /// <summary>
         /// The ID of a clicked DOM element, used to disambiguate multiple links to the same URL in In-Page Analytics reports when Enhanced Link Attribution is enabled for the property.
@@ -293,7 +306,7 @@ namespace Google.Analytics.SDK.Core.Hits
         /// <summary>
         /// Required for event hit type. Specifies the event category.Must not be empty.
         /// </summary>
-        [Hit(Parm = "ec", Required = false)]
+        [Hit(Parm = "ec", Required = true)]
         public string EventCategory { get; set; }
 
         /// <summary>
@@ -322,7 +335,8 @@ namespace Google.Analytics.SDK.Core.Hits
         /// <summary>
         /// Required for transaction hit type. 
         /// Required for item hit type.
-        /// A unique identifier for the transaction.This value should be the same for both the Transaction hit and Items hits associated to the particular transaction.
+        /// A unique identifier for the transaction.This value should be the same for both the Transaction hit and
+        ///  Items hits associated to the particular transaction.
         /// </summary>
         [Hit(Parm = "ti", Required = false)]
         public string TransactionId { get; set; }
@@ -385,19 +399,9 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
-        #region exception
+        #region Enhanced E-Commerce
 
-        /// <summary>
-        /// Specifies the description of an exception.
-        /// </summary>
-        [Hit(Parm = "exd", Required = false)]
-        public string ExceptionDescription { get; set; }
-
-        /// <summary>
-        /// Specifies whether the exception was fatal.
-        /// </summary>
-        [Hit(Parm = "exf", Required = false)]
-        public string ExceptionIsFatal { get; set; }
+        // TODO add Enhanced E-Commerce paramaters
 
         #endregion
 
@@ -410,7 +414,8 @@ namespace Google.Analytics.SDK.Core.Hits
         public string SocialNetwork { get; set; }
 
         /// <summary>
-        /// Specifies the social interaction action. For example on Google Plus when a user clicks the +1 button, the social action is 'plus'.
+        /// Specifies the social interaction action. For example on Google Plus when a user clicks the +1 button, 
+        /// the social action is 'plus'.
         /// </summary>
         [Hit(Parm = "sa", Required = true)]
         public string SocialAction { get; set; }
@@ -487,17 +492,32 @@ namespace Google.Analytics.SDK.Core.Hits
         public string ServerResponseTime { get; set; }
 
         /// <summary>
+        /// Specifies the time it took for Document.readyState to be 'interactive'. The value is in milliseconds.
+        /// </summary>
+        [Hit(Parm = "dit", Required = false)]
+        public string DOMInteractiveTime { get; set; }
+
+        /// <summary>
         /// Specifies the time it took for the DOMContentLoaded Event to fire. The value is in milliseconds.
         /// </summary>
         [Hit(Parm = "clt", Required = false)]
         public string CurrentLocalTime { get; set; }
 
+        #endregion
+
+        #region exception
 
         /// <summary>
-        /// Specifies the time it took for Document.readyState to be 'interactive'. The value is in milliseconds.
+        /// Specifies the description of an exception.
         /// </summary>
-        [Hit(Parm = "dit", Required = false)]
-        public string DOMInteractiveTime { get; set; }
+        [Hit(Parm = "exd", Required = false)]
+        public string ExceptionDescription { get; set; }
+
+        /// <summary>
+        /// Specifies whether the exception was fatal.
+        /// </summary>
+        [Hit(Parm = "exf", Required = false)]
+        public string ExceptionIsFatal { get; set; }
 
         #endregion
 
@@ -535,10 +555,27 @@ namespace Google.Analytics.SDK.Core.Hits
 
         #endregion
 
-        
+        #region ContentExperiments
+
+        /// <summary>
+        /// This parameter specifies that this user has been exposed to an experiment with the given ID.
+        ///  It should be sent in conjunction with the Experiment Variant parameter.
+        /// </summary>
+        [Hit(Parm = "xid", Required = false)]
+        public string ExperimentID { get; set; }
+
+        /// <summary>
+        /// This parameter specifies that this user has been exposed to a particular variation of an experiment. 
+        /// It should be sent in conjunction with the Experiment ID parameter.
+        /// </summary>
+        [Hit(Parm = "xvar", Required = false)]
+        public string ExperimentVariant { get; set; }
+
+        #endregion
+
         public bool IsValid { get; set; }
 
-        public ILogger Logger { get; set; }  = new NoLogging();
+        public ILogger Logger { get; set; } = new NoLogging();
 
         public void EnableLogging(ILogger logger)
         {
@@ -548,7 +585,7 @@ namespace Google.Analytics.SDK.Core.Hits
         public bool Validate()
         {
             IsValid = false;
-            
+
             if (string.IsNullOrWhiteSpace(ClientId) || string.IsNullOrWhiteSpace(ProtocolVersion) || string.IsNullOrWhiteSpace(HitType))
             {
                 Console.WriteLine($"Required paramater missing. clientId={ClientId}, ProtocolVersion={ProtocolVersion}, HitType={HitType}");
@@ -616,7 +653,7 @@ namespace Google.Analytics.SDK.Core.Hits
             }
             catch (Exception e)
             {
-                Logger.LogError($"Generate request failed. {e.Message}",e.Message, e);
+                Logger.LogError($"Generate request failed. {e.Message}", e.Message, e);
                 throw;
             }
         }
