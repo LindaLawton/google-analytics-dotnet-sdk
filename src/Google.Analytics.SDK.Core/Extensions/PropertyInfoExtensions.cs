@@ -10,6 +10,7 @@ namespace Google.Analytics.SDK.Core.Extensions
         {
             return property.PropertyType == typeof(IList<CustomDimenison>) ||
                    property.PropertyType == typeof(IList<CustomMetric>) ||
+                   property.PropertyType == typeof(IList<ContentGroup>) ||
                    property.PropertyType == typeof(string) ||
                    property.PropertyType == typeof(int) ||
                    property.PropertyType == typeof(long) ||
