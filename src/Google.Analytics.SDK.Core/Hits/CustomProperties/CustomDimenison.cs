@@ -12,4 +12,14 @@ namespace Google.Analytics.SDK.Core.Hits.CustomProperties
 
         public string Value { get; set; }
     }
+
+
+    public class ContentGroup : ContentGroupParmBase
+    {
+        public ContentGroup(int number, string value) : base(number)
+        {
+            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentOutOfRangeException(nameof(value), "Value must be set.");
+            Value = value;
+        }
+    }
 }

@@ -261,7 +261,16 @@ namespace Google.Analytics.SDK.Core.Hits
         /// You can have up to 5 content groupings, each of which has an associated index between 1 and 5, inclusive. Each content grouping can have up to 100 content groups. The value of a content group is hierarchical text delimited by '/". All leading and trailing slashes will be removed and any repeated slashes will be reduced to a single slash. For example, '/a//b/' will be converted to 'a/b'.
         /// </summary>
         [Hit(Parm = "cg<groupIndex>", Required = false)]
-        public Dictionary<int, string> ContentGroup { get; set; }  // TODO support like custom dimensions.
+        public IList<ContentGroup> ContentGroup { get; set; }  
+
+        public void AddContentGroup(int id, string value)
+        {
+            if (ContentGroup == null) ContentGroup = new List<ContentGroup>();
+
+            if (ContentGroup.FirstOrDefault(d => id.Equals(d.Number)) != null)
+                throw new ArgumentOutOfRangeException(nameof(id), "${id} already exists");
+            ContentGroup.Add(new ContentGroup(id, value));
+        }
 
         /// <summary>
         /// The ID of a clicked DOM element, used to disambiguate multiple links to the same URL in In-Page Analytics reports when Enhanced Link Attribution is enabled for the property.
@@ -603,12 +612,10 @@ namespace Google.Analytics.SDK.Core.Hits
 
         public Dictionary<string, string> GetRequestParamaters()
         {
-         
             var parms = new Dictionary<string,string>();
 
             try
             {
-
                 var properties = typeof(HitBase).GetProperties();
                 foreach (var property in properties)
                 {
@@ -640,11 +647,20 @@ namespace Google.Analytics.SDK.Core.Hits
                         continue;
                     }
 
+                    if (property.PropertyType == typeof(IList<ContentGroup>))
+                    {
+                        foreach (var custom in (List<ContentGroup>)value)
+                        {
+                            parms.Add($"cg{custom.Number}", custom.Value);
+                        }
+                        continue;
+                    }
+
                     var defalutString = this.BuildPropertyString(name);
                     var defaultKeyPair = this.GetPropertyString(name);
-                    if (defaultKeyPair.Key != null )
+                    if (defaultKeyPair.Key != null)
                         parms.Add(defaultKeyPair.Key, defaultKeyPair.Value);
-
+                        
                     if (string.IsNullOrWhiteSpace(defalutString)) continue;
                 }
 
@@ -658,4 +674,6 @@ namespace Google.Analytics.SDK.Core.Hits
         }
 
     }
+
+    
 }

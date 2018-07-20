@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.4-beta</Version>
+    <Version>1.0.5-beta</Version>
     <PackageId>Daimto.Google.Analytics.Tracker.SDK</PackageId>
     <Authors>Linda Lawton</Authors>
     <Company>Daimto</Company>
@@ -21,7 +21,7 @@ Supported Platforms:
     <PackageProjectUrl>https://github.com/LindaLawton/google-analytics-dotnet-sdk</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LindaLawton/google-analytics-dotnet-sdk</RepositoryUrl>
     <PackageTags>Google analytics tracker measurement protocol</PackageTags>
-    <PackageReleaseNotes>adds isvalid for debug response.</PackageReleaseNotes>
+    <PackageReleaseNotes>adds support for ContentGroup</PackageReleaseNotes>
     <PackageIconUrl>https://raw.githubusercontent.com/LindaLawton/google-analytics-dotnet-sdk/master/images/analyticsicon.png</PackageIconUrl>
   </PropertyGroup>
 
