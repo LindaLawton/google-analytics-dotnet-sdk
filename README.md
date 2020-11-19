@@ -42,7 +42,7 @@ I have not added support for [batching](https://developers.google.com/analytics/
 
 # Alpah support for Ga4
 
-This is an alpha brach which supports [Google Analytics Ga4 measurment protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4) it is very early days with Ga4, Expect to see changes in this often.  Basic example of how to set up the Ga4Tracker can be found in the host project.  I will update the read me when things stables.
+This is an alpha brach which supports [Google Analytics Ga4 measurment protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4) it is very early days with Ga4, expect to see changes in this often. A basic example of how to set up the Ga4Tracker can be found in the host project. I will update the readMe when things stabilize.
 
 Current support for 
 
