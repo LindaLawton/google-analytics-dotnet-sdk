@@ -38,6 +38,15 @@ Additional samples can be found in the Quick start project - [Tutorials](https:/
 ## Batching
 
 I have not added support for [batching](https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide#batch) yet.  If your interested in it please let me know.
+
+
+# Alpah support for Ga4
+
+This is an alpha brach which supports [Google Analytics Ga4 measurment protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4) it is very early days with Ga4, Expect to see changes in this often.  Basic example of how to set up the Ga4Tracker can be found in the host project.  I will update the read me when things stables.
+
+Current support for 
+
+-  [Events](https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#required_parameters)  as there is currently very little documentation on the paramaters which are valid for this protocol I have added all of the ones found in the [Event builder](https://ga-dev-tools.appspot.com/ga4-event-builder/)
 	
 	
 ## About this SDK
