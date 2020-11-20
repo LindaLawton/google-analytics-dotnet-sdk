@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <LangVersion>9</LangVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>1.0.5-beta</Version>
     <PackageId>Daimto.Google.Analytics.Tracker.SDK</PackageId>

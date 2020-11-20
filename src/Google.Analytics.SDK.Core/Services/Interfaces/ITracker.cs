@@ -15,24 +15,7 @@ namespace Google.Analytics.SDK.Core.Services.Interfaces
         ILogger Logger { get; }
         string TrackingId { get; }
         string ClientId { get; }
-
-        string ApplicationName { get; }
-        string ApplicationId { get; }
-        string ApplicationVersion { get;}
-        
-        Task IsValid();
     }
-
-    public class ErrorResult : IResult
-    {
-        public ErrorResult(string result)
-        {
-            RawResponse = result;
-        }
-
-        public string RawResponse { get; }
-    }
-
 
     public abstract class MustInitialize<T>
     {

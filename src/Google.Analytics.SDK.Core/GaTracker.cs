@@ -11,20 +11,18 @@ namespace Google.Analytics.SDK.Core
 {
     public class GaTracker : ITracker
     {
-        
-        public string Type { get; private set; }
+        public string Type { get;  }
         public ILogger Logger { get; } = new NoLogging();
         public string TrackingId { get; }
         public string ClientId { get; }
-
         public string ApplicationName { get; private set; }
         public string ApplicationId { get; private set; }
         public string ApplicationVersion { get; private set; }
 
-        public void ConfigurApplication(string applicationName = "", string applicationVersion = "", string applicationId = "")
+        public void ConfigurationMobileApplication(string applicationName = null, string applicationVersion = null, string applicationId = null)
         {
             ApplicationName = string.IsNullOrWhiteSpace(applicationName)? AppDomain.CurrentDomain.FriendlyName : applicationName;
-            ApplicationVersion = string.IsNullOrWhiteSpace(applicationName) ? Assembly.GetExecutingAssembly().GetName().Version.ToString() : applicationVersion;
+            ApplicationVersion = string.IsNullOrWhiteSpace(applicationVersion) ? Assembly.GetExecutingAssembly().GetName().Version.ToString() : applicationVersion;
             ApplicationId = string.IsNullOrWhiteSpace(applicationId) ? "1": applicationId;
         }
 
@@ -33,10 +31,9 @@ namespace Google.Analytics.SDK.Core
             Type = type;
             TrackingId = trackingId;
             ClientId = Guid.NewGuid().ToString();
-            ConfigurApplication();
+            ConfigurationMobileApplication();
             Logger = logger ?? new NoLogging();
         }
-
         public Task IsValid()
         {
             throw new NotImplementedException();

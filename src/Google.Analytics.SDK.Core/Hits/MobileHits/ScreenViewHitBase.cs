@@ -8,6 +8,7 @@ namespace Google.Analytics.SDK.Core.Hits.MobileHits
 {
     public abstract class ScreenViewHitBase : HitBase
     {
+        [Obsolete("This method is obsolete. Mobile google analytics accounts not supported.", false)]
         protected ScreenViewHitBase(string screenName)
         {
             if (string.IsNullOrWhiteSpace(screenName)) throw new ArgumentNullException(screenName);

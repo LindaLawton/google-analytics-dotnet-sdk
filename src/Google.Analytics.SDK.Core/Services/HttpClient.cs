@@ -11,12 +11,11 @@ namespace Google.Analytics.SDK.Core.Services
     {
         public static HttpClient CreateClient()
         {
-            var client = new HttpClient
+            return new HttpClient
             {
                 Timeout = TimeSpan.FromSeconds(30),
                 BaseAddress = new Uri(GoogleAnalyticsEndpoints.Host)
             };
-            return client;
         }
     }
 
